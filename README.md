@@ -1,21 +1,21 @@
 # SharaForms API Docs
 
-Static documentation site for the SharaForms API, published at **https://docs.sharaforms.com** (GitHub Pages, behind Cloudflare).
+Static documentation site for the SharaForms API, published at **https://docs.sharaforms.com** (GitHub Pages → Cloudflare → domain).
 
 ## Layout
 
-- `site/` — built static site (pure HTML + CSS, no JS). This is what GitHub Pages serves (`/site`).
-- `source/api-reference/` — MDX sources for the API reference pages.
-- `build.py` — static site builder.
+- `docs/` — built static site (pure HTML + CSS, no JS). GitHub Pages publishes this directory (`/docs`). Contains `CNAME` + `.nojekyll`.
+- `source/` — MDX sources: `api-reference/`, `features/computed-variables.mdx`, `embedding/javascript-sdk.mdx`.
+- `build.py` — static site builder (writes to `docs/` here, or `site/` in the main repo layout).
 
 ## Rebuild
 
 ```bash
-python3 build.py     # regenerates site/ from source/api-reference/
+python3 build.py     # regenerates docs/ from source/
 ```
 
-The builder falls back to `../docs/api-reference` (the main sharaforms repo) when `source/` is absent.
+Push to `main` to publish (Pages auto-deploys from the `docs/` directory).
 
-## Deploy
+## DNS
 
-Push to `main`. GitHub Pages publishes from the `site/` directory (`CNAME` + `.nojekyll` live there). Cloudflare proxies `docs.sharaforms.com` → `FFFSTANZA.github.io`.
+`docs.sharaforms.com` → `CNAME` → `fffstanza.github.io` (proxied, Cloudflare zone `sharaforms.com`). Domain registered at Hostinger; nameservers point at Cloudflare.

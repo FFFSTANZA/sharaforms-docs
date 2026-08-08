@@ -13,7 +13,7 @@ from pathlib import Path
 ROOT = Path(__file__).resolve().parent
 _SOURCE = ROOT / "source" / "api-reference"
 MDX_DIR = _SOURCE if _SOURCE.is_dir() else ROOT.parent / "docs" / "api-reference"
-OUT = ROOT / "site"
+OUT = ROOT / "docs" if _SOURCE.is_dir() else ROOT / "site"
 
 SITE_NAME = "SharaForms API Docs"
 BASE_URL = "https://api.sharaforms.com"
@@ -104,11 +104,15 @@ NAV = [
 EXTRA_SOURCES = [
     (
         "computed-variables",
-        ROOT.parent / "docs" / "features" / "computed-variables.mdx",
+        (ROOT / "source" / "features" / "computed-variables.mdx")
+        if _SOURCE.is_dir()
+        else ROOT.parent / "docs" / "features" / "computed-variables.mdx",
     ),
     (
         "embedding/javascript-sdk",
-        ROOT.parent / "docs" / "embedding" / "javascript-sdk.mdx",
+        (ROOT / "source" / "embedding" / "javascript-sdk.mdx")
+        if _SOURCE.is_dir()
+        else ROOT.parent / "docs" / "embedding" / "javascript-sdk.mdx",
     ),
 ]
 
@@ -640,6 +644,11 @@ def main():
     ):
         (OUT / d).mkdir(parents=True)
     (OUT / "styles.css").write_text(CSS)
+
+    # GitHub Pages deployment files (docs-repo mode)
+    if OUT != ROOT / "site":
+        (OUT / "CNAME").write_text("docs.sharaforms.com\n")
+        (OUT / ".nojekyll").touch()
 
     # copy images (create-token.png etc.)
     img_src = MDX_DIR / "images"
