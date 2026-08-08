@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>leave-workspace · SharaForms API Docs</title>
+<meta name="description" content="leave-workspace — SharaForms API reference.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
+  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+</header>
+<div class="layout">
+  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html" class="active">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
+  <main class="content">
+    <article>
+      <h1 class="page-title">leave-workspace</h1>
+      <h2>Leave Workspace</h2>
+<p>Remove <strong>your own</strong> user account from a workspace.</p>
+<h3>Authentication &amp; Scope</h3>
+<p>Requires the <code>workspace-users-write</code> ability. Only the authenticated user can leave; admins cannot use this endpoint to kick others (see <a href="remove-workspace-user.html">Remove Workspace User</a>).</p>
+<h3>Request</h3>
+<div class="codeblock"><span class="code-lang">http</span><pre><code>POST /open/workspaces/{workspaceId}/leave HTTP/1.1
+Host: api.sharaforms.com
+Authorization: Bearer &lt;token&gt;</code></pre></div>
+<h4>Path Parameters</h4>
+<div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>workspaceId</td><td>number</td><td>ID of the workspace to quit</td></tr></tbody></table></div>
+<p>Request body is empty.</p>
+<h3>Response</h3>
+<p><code>204 No Content</code> – You successfully left the workspace.</p>
+<p><code>403 Forbidden</code> – Token lacks <code>workspace-users-write</code> or you aren't a member.</p>
+    </article>
+    
+    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
+  <div class="pager"><a class="page-nav prev" href="/workspace-users/cancel-workspace-invite.html"><span>Previous</span>Cancel Workspace Invite</a><a class="page-nav next" href="/computed-variables.html"><span>Next</span>Computed Variables</a></div></main>
+</div>
+</body>
+</html>

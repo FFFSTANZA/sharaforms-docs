@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Introduction · SharaForms API Docs</title>
+<meta name="description" content="Overview of the SharaForms REST API, base URL, authentication, and rate limits.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
+  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+</header>
+<div class="layout">
+  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html" class="active">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
+  <main class="content">
+    <article>
+      <h1 class="page-title">Introduction</h1>
+      <p>Welcome to the <strong>SharaForms REST API</strong> – a straightforward, JWT-based interface that lets you manage workspaces, forms and submissions from your own tools or backend jobs.</p>
+<p>If you've ever used the dashboard you already know the objects you'll be working with: <strong>workspaces</strong>, <strong>forms</strong>, <strong>submissions</strong>, and <strong>users</strong>. The API exposes almost the same capabilities – you can list items, create new ones, update them or delete them, all with predictable HTTP verbs.</p>
+<h3>Base URL</h3>
+<div class="codeblock"><pre><code>https://api.sharaforms.com</code></pre></div>
+<p>All endpoints documented in this reference are relative to that URL.</p>
+<h3>Authentication</h3>
+<p>Every request must include a <strong>Personal Access Token</strong> in the <code>Authorization</code> header:</p>
+<div class="codeblock"><span class="code-lang">http</span><pre><code>Authorization: Bearer &lt;access_token&gt;</code></pre></div>
+<p>Tokens can be created in your SharaForms dashboard (see the <a href="api-keys.html">API Keys</a> section). Each token is associated with one or more <strong>abilities / scopes</strong> that restrict what it can do.</p>
+<div class="table-wrap"><table><thead><tr><th>Ability</th><th>Description</th></tr></thead><tbody><tr><td>workspaces-read</td><td>Read workspaces the user belongs to</td></tr><tr><td>workspaces-write</td><td>Create, update or delete workspaces</td></tr><tr><td>workspace-users-read</td><td>List workspace members &amp; invites</td></tr><tr><td>workspace-users-write</td><td>Manage workspace members &amp; invites</td></tr><tr><td>forms-read</td><td>Read forms &amp; submissions</td></tr><tr><td>forms-write</td><td>Create or modify forms &amp; submissions</td></tr></tbody></table></div>
+<p>When your request attempts an operation outside the abilities attached to the token, the API responds with <strong>403 Forbidden</strong>.</p>
+<h3>Pagination</h3>
+<p>Some list endpoints are paginated. Use the <code>page</code> query parameter (<code>?page=2</code>) to retrieve subsequent pages.</p>
+<h3>Rate limits</h3>
+<p>Each IP address is limited to <strong>100 requests per minute</strong>. Exceeding the limit returns <strong>429 Too Many Requests</strong>.</p>
+<h3>Errors</h3>
+<p>Errors are returned in JSON with an HTTP status code that reflects the problem:</p>
+<div class="codeblock"><span class="code-lang">json</span><pre><code>{
+  "message": "Validation failed.",
+  "errors": {
+    "title": ["The title field is required."]
+  }
+}</code></pre></div>
+<p>See the status-code table below for the most common cases:</p>
+<div class="table-wrap"><table><thead><tr><th>Status</th><th>Meaning</th></tr></thead><tbody><tr><td>400</td><td>Bad request / validation error</td></tr><tr><td>401</td><td>Missing or invalid token</td></tr><tr><td>403</td><td>Token lacks required ability</td></tr><tr><td>404</td><td>Resource not found</td></tr><tr><td>429</td><td>Rate limit exceeded</td></tr><tr><td>500</td><td>Server error – something went wrong on our side</td></tr></tbody></table></div>
+<p>That's all you need to know to get started – head over to the endpoint sections or grab a token and make your first call:</p>
+<div class="codeblock"><span class="code-lang">bash</span><pre><code>curl -H "Authorization: Bearer &lt;access_token&gt;" https://api.sharaforms.com/open/workspaces</code></pre></div>
+    </article>
+    
+    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
+  <div class="pager"><a class="page-nav next" href="/api-keys.html"><span>Next</span>API Keys</a></div></main>
+</div>
+</body>
+</html>

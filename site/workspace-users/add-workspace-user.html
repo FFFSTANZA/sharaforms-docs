@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>add-workspace-user · SharaForms API Docs</title>
+<meta name="description" content="add-workspace-user — SharaForms API reference.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
+  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+</header>
+<div class="layout">
+  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html" class="active">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
+  <main class="content">
+    <article>
+      <h1 class="page-title">add-workspace-user</h1>
+      <h2>Add Workspace User</h2>
+<p>Invite an existing SharaForms user to a workspace or send an email invite if the user doesn't yet have an account.</p>
+<div class="admo admo-note"><p class="admo-label">Note</p><p>Self-hosted Community instances are limited to 2 users total across the whole instance. Adding or inviting a new user beyond that limit requires a self-hosted Enterprise license. Adding an existing instance user to another workspace does not consume an additional user seat.</p></div>
+<h3>Authentication &amp; Scope</h3>
+<p>Requires the <code>workspace-users-write</code> ability and <strong>admin</strong> privileges in the workspace.</p>
+<h3>Request</h3>
+<div class="codeblock"><span class="code-lang">http</span><pre><code>POST /open/workspaces/{workspaceId}/users/add HTTP/1.1
+Host: api.sharaforms.com
+Content-Type: application/json
+Authorization: Bearer &lt;token&gt;</code></pre></div>
+<h4>Path Parameters</h4>
+<div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>workspaceId</td><td>number</td><td>ID of the target workspace.</td></tr></tbody></table></div>
+<h4>Body Parameters</h4>
+<div class="table-wrap"><table><thead><tr><th>Field</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td>email</td><td>string</td><td>Yes</td><td>Email address of the user to add/invite.</td></tr><tr><td>role</td><td>string</td><td>Yes</td><td>Role to assign (<code>admin</code>, <code>user</code>, or <code>readonly</code>).</td></tr></tbody></table></div>
+<p>Example:</p>
+<div class="codeblock"><span class="code-lang">json</span><pre><code>{
+  "email": "jane@example.com",
+  "role": "user"
+}</code></pre></div>
+<h3>Response</h3>
+<p><code>200 OK</code> – One of the following messages:</p>
+<ul><li><code>"User has been successfully added to workspace."</code> – when the user account already exists.</li><li><code>"Registration invitation email sent to user."</code> – when an invitation email was sent.</li><li><code>"User is already in workspace."</code> – if the user is already a member.</li></ul>
+<p>The response structure:</p>
+<div class="codeblock"><span class="code-lang">json</span><pre><code>{
+  "message": "User has been successfully added to workspace."
+}</code></pre></div>
+<p><code>403 Forbidden</code> – Token lacks <code>workspace-users-write</code>, the requester has insufficient privileges, or the self-hosted Community instance has reached the 2-user limit.</p>
+    </article>
+    
+    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
+  <div class="pager"><a class="page-nav prev" href="/workspace-users/list-workspace-invites.html"><span>Previous</span>List Workspace Invites</a><a class="page-nav next" href="/workspace-users/update-workspace-user-role.html"><span>Next</span>Update Workspace User Role</a></div></main>
+</div>
+</body>
+</html>

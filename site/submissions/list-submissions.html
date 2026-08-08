@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>list-submissions · SharaForms API Docs</title>
+<meta name="description" content="list-submissions — SharaForms API reference.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
+  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+</header>
+<div class="layout">
+  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html" class="active">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
+  <main class="content">
+    <article>
+      <h1 class="page-title">list-submissions</h1>
+      <h2>List Submissions</h2>
+<p>Retrieve submissions for a specific form.</p>
+<h3>Authentication &amp; Scope</h3>
+<p>Requires <code>forms-read</code> ability.</p>
+<h3>Request</h3>
+<div class="codeblock"><span class="code-lang">http</span><pre><code>GET /open/forms/{id}/submissions?page=1 HTTP/1.1
+Host: api.sharaforms.com
+Authorization: Bearer &lt;token&gt;</code></pre></div>
+<h4>Path Parameters</h4>
+<div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>id</td><td>number</td><td>Numeric ID of the form.</td></tr></tbody></table></div>
+<h4>Query Parameters</h4>
+<div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Type</th><th>Required</th><th>Description</th></tr></thead><tbody><tr><td>page</td><td>number</td><td>No</td><td>Pagination page number (default <code>1</code>).</td></tr><tr><td>per_page</td><td>number</td><td>No</td><td>Number of results per page (default <code>100</code>, max <code>100</code>).</td></tr><tr><td>search</td><td>string</td><td>No</td><td>Search term to filter submissions by field values.</td></tr><tr><td>status</td><td>string</td><td>No</td><td>Filter by submission status: <code>completed</code>, <code>partial</code>, or <code>all</code> (default).</td></tr></tbody></table></div>
+<h3>Response</h3>
+<p><code>200 OK</code> – Returns a paginated collection of <code>Submission</code> objects.</p>
+<div class="codeblock"><span class="code-lang">json</span><pre><code>{
+    "data": [
+        {
+            "data": {
+                "field-id-1": "Sample text response",
+                "field-id-2": ["Option 1", "Option 2"],
+                "field-id-3": [
+                    {
+                        "file_url": "https://api.sharaforms.com/open/forms/123/submissions/file/document.pdf?expires=1756808073&amp;signature=abc123...",
+                        "file_name": "document.pdf"
+                    }
+                ],
+                "status": "completed",
+                "created_at": "2024-06-12 09:15:23",
+                "id": 615432
+            },
+            "completion_time": 45,
+            "form_id": 123,
+            "id": 615432
+        }
+    ],
+    "links": {
+        "first": "https://api.sharaforms.com/open/forms/123/submissions?page=1",
+        "last": "https://api.sharaforms.com/open/forms/123/submissions?page=3",
+        "prev": null,
+        "next": "https://api.sharaforms.com/open/forms/123/submissions?page=2"
+    },
+    "meta": {
+        "current_page": 1,
+        "from": 1,
+        "last_page": 3,
+        "links": [
+            {
+                "url": null,
+                "label": "&amp;laquo; Previous",
+                "active": false
+            },
+            {
+                "url": "https://api.sharaforms.com/open/forms/123/submissions?page=1",
+                "label": "1",
+                "active": true
+            },
+            {
+                "url": "https://api.sharaforms.com/open/forms/123/submissions?page=2",
+                "label": "Next &amp;raquo;",
+                "active": false
+            }
+        ],
+        "path": "https://api.sharaforms.com/open/forms/123/submissions",
+        "per_page": 100,
+        "to": 12,
+        "total": 12
+    }
+}</code></pre></div>
+<h4>Response Fields</h4>
+<p>Each submission object contains:</p>
+<div class="table-wrap"><table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>data</code></td><td>object</td><td>Contains form field responses plus metadata</td></tr><tr><td><code>completion_time</code></td><td>number/null</td><td>Time taken to complete the form in seconds</td></tr><tr><td><code>form_id</code></td><td>number</td><td>ID of the parent form</td></tr><tr><td><code>id</code></td><td>number</td><td>Unique submission ID</td></tr></tbody></table></div>
+<h5>Data Object Structure</h5>
+<p>The <code>data</code> object contains:</p>
+<ul><li><strong>Form field responses</strong>: Keyed by field UUID, values vary by field type</li><li><strong>Metadata fields</strong>:</li><li><code>status</code>: Submission status (<code>completed</code> or <code>partial</code>)</li><li><code>created_at</code>: Submission creation timestamp</li><li><code>id</code>: Submission ID (duplicate for convenience)</li></ul>
+<h5>File Field Handling</h5>
+<p>File and signature fields are automatically processed to include download URLs:</p>
+<div class="codeblock"><span class="code-lang">json</span><pre><code>"field-uuid": [
+  {
+    "file_url": "https://api.sharaforms.com/open/forms/123/submissions/file/filename.pdf?expires=1756808073&amp;signature=abc123...",
+    "file_name": "filename.pdf"
+  }
+]</code></pre></div>
+<div class="admo admo-note"><p class="admo-label">Note</p><p>File URLs are signed and expire after 10 minutes for security.</p></div>
+<h4>Query Parameter Details</h4>
+<h5>Search Functionality</h5>
+<ul><li>Searches within submission field <strong>values only</strong> (not field names/keys)</li><li>Uses case-insensitive matching</li><li>Supports partial text matching</li></ul>
+<h5>Status Filtering</h5>
+<ul><li><code>completed</code>: Returns only fully completed submissions</li><li><code>partial</code>: Returns only partially completed submissions (Pro feature)</li><li><code>all</code> or omitted: Returns all submissions regardless of status</li></ul>
+<h5>Pagination</h5>
+<ul><li>Default <code>per_page</code> is 100, maximum is 100</li><li>Results are ordered by <code>created_at</code> in descending order (newest first)</li></ul>
+<p><code>403 Forbidden</code> – The token lacks <code>forms-read</code>.</p>
+    </article>
+    
+    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
+  <div class="pager"><a class="page-nav prev" href="/submissions/create-submission.html"><span>Previous</span>Create Submission (Public)</a><a class="page-nav next" href="/submissions/export-submissions-csv.html"><span>Next</span>Export Submissions (CSV)</a></div></main>
+</div>
+</body>
+</html>

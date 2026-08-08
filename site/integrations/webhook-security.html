@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Validating Webhook Signatures · SharaForms API Docs</title>
+<meta name="description" content="Learn how to validate webhook signatures from SharaForms to ensure authenticity and integrity">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
+  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+</header>
+<div class="layout">
+  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html" class="active">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
+  <main class="content">
+    <article>
+      <h1 class="page-title">Validating Webhook Signatures</h1>
+      <h2>Validating Webhook Signatures</h2>
+<p>When you configure a webhook with a signing secret, SharaForms signs each webhook request with an HMAC-SHA256 signature. This allows you to verify that:</p>
+<ol><li>The webhook came from SharaForms (authenticity)</li><li>The payload hasn't been modified in transit (integrity)</li></ol>
+<h3>Understanding the Signature</h3>
+<p>Each webhook request includes an <code>X-Webhook-Signature</code> header with the format:</p>
+<div class="codeblock"><pre><code>X-Webhook-Signature: sha256=HEXADECIMAL_VALUE</code></pre></div>
+<p>The signature is calculated as:</p>
+<div class="codeblock"><pre><code>signature = HMAC-SHA256(webhook_secret, request_body)</code></pre></div>
+<p>Where:</p>
+<ul><li><code>webhook_secret</code> is the secret you provided when creating the webhook</li><li><code>request_body</code> is the raw JSON payload</li></ul>
+<h3>Validation Steps</h3>
+<ol><li>Extract the signature from the <code>X-Webhook-Signature</code> header</li><li>Remove the <code>sha256=</code> prefix</li><li>Calculate the expected signature using your webhook secret and the raw request body</li><li>Compare the received signature with the calculated signature</li><li>Reject the webhook if signatures don't match</li></ol>
+<div class="admo admo-warning"><p class="admo-label">Warning</p><p>Always use the <strong>raw request body</strong> (as bytes/string before parsing) when calculating the signature. Parsing JSON and re-serializing can produce different output and cause signature mismatches.</p></div>
+<h3>Implementation Examples</h3>
+<div class="codeblock"><span class="code-lang">javascript</span><pre><code>const express = require('express');
+const crypto = require('crypto');
+
+const app = express();
+
+// Important: Use raw body middleware to access raw request data
+app.use(express.raw({ type: 'application/json' }));
+
+app.post('/webhook', (req, res) =&gt; {
+  const signature = req.headers['x-webhook-signature'];
+  const secret = process.env.SHARAFORMS_WEBHOOK_SECRET;
+
+  if (!signature || !secret) {
+    return res.status(401).send('Unauthorized: Missing signature or secret');
+  }
+
+  // Calculate expected signature using raw body
+  const expectedSignature = 'sha256=' + crypto
+    .createHmac('sha256', secret)
+    .update(req.body)
+    .digest('hex');
+
+  // Constant-time comparison to prevent timing attacks
+  if (!crypto.timingSafeEqual(signature, expectedSignature)) {
+    return res.status(401).send('Unauthorized: Invalid signature');
+  }
+
+  // Signature is valid, parse and process the webhook
+  const data = JSON.parse(req.body);
+  console.log('Webhook received:', data);
+
+  res.status(200).send('Webhook received');
+});
+
+app.listen(3000, () =&gt; console.log('Webhook server running on port 3000'));</code></pre></div>
+<div class="codeblock"><span class="code-lang">python</span><pre><code>from flask import Flask, request
+import hmac
+import hashlib
+import json
+import os
+
+app = Flask(__name__)
+
+@app.route('/webhook', methods=['POST'])
+def webhook():
+    signature = request.headers.get('X-Webhook-Signature')
+    secret = os.environ.get('SHARAFORMS_WEBHOOK_SECRET')
+
+    if not signature or not secret:
+        return 'Unauthorized: Missing signature or secret', 401
+
+    # Get raw request body
+    raw_body = request.get_data()
+
+    # Calculate expected signature
+    expected_signature = 'sha256=' + hmac.new(
+        secret.encode(),
+        raw_body,
+        hashlib.sha256
+    ).hexdigest()
+
+    # Constant-time comparison
+    if not hmac.compare_digest(signature, expected_signature):
+        return 'Unauthorized: Invalid signature', 401
+
+    # Signature is valid, parse and process the webhook
+    data = request.get_json()
+    print('Webhook received:', data)
+
+    return 'Webhook received', 200
+
+if __name__ == '__main__':
+    app.run(port=3000, debug=True)</code></pre></div>
+<div class="codeblock"><span class="code-lang">php</span><pre><code>&lt;?php
+
+use Illuminate\Http\Request;
+
+Route::post('/webhook', function (Request $request) {
+    $signature = $request-&gt;header('X-Webhook-Signature');
+    $secret = env('SHARAFORMS_WEBHOOK_SECRET');
+
+    if (!$signature || !$secret) {
+        return response('Unauthorized: Missing signature or secret', 401);
+    }
+
+    // Get raw request body
+    $rawBody = $request-&gt;getContent();
+
+    // Calculate expected signature
+    $expectedSignature = 'sha256=' . hash_hmac(
+        'sha256',
+        $rawBody,
+        $secret
+    );
+
+    // Constant-time comparison
+    if (!hash_equals($signature, $expectedSignature)) {
+        return response('Unauthorized: Invalid signature', 401);
+    }
+
+    // Signature is valid, parse and process the webhook
+    $data = $request-&gt;json()-&gt;all();
+    \Log::info('Webhook received:', $data);
+
+    return response('Webhook received', 200);
+});</code></pre></div>
+<div class="codeblock"><span class="code-lang">bash</span><pre><code># Generate a webhook secret for testing
+SECRET="whsec_1234567890abcdefghijklmnopqr"
+BODY='{"form_title":"My Form","submission":{"email":"test@example.com"}}'
+
+# Calculate signature
+SIGNATURE="sha256=$(echo -n "$BODY" | openssl dgst -sha256 -hmac "$SECRET" -hex | cut -d' ' -f2)"
+
+# Send webhook request
+curl -X POST http://localhost:3000/webhook \
+  -H "Content-Type: application/json" \
+  -H "X-Webhook-Signature: $SIGNATURE" \
+  -d "$BODY"</code></pre></div>
+<h3>Custom Headers</h3>
+<p>In addition to the signature header, SharaForms will send any custom headers you configured when creating the webhook. These can include authentication tokens, API keys, or other identifiers.</p>
+<p>Example webhook request with custom headers:</p>
+<div class="codeblock"><span class="code-lang">bash</span><pre><code>POST /webhook HTTP/1.1
+Host: example.com
+Content-Type: application/json
+X-Webhook-Signature: sha256=abc123def456...
+Authorization: Bearer my-api-token
+X-Custom-Header: custom-value
+
+{
+  "form_id": 123,
+  "form_title": "Contact Form",
+  "submission_id": 456,
+  "submission": { ... }
+}</code></pre></div>
+<h3>Security Best Practices</h3>
+<div class="admo admo-tip"><p class="admo-label">Tip</p><ol><li><strong>Use HTTPS only</strong>: Always use HTTPS endpoints for webhooks to prevent man-in-the-middle attacks</li><li><strong>Strong secrets</strong>: Use cryptographically random secrets at least 12 characters long</li><li><strong>Constant-time comparison</strong>: Use timing-safe comparison functions to prevent timing attacks</li><li><strong>Validate signatures first</strong>: Verify the signature before parsing or processing the webhook data</li><li><strong>Store secrets securely</strong>: Never commit secrets to version control; use environment variables or secret managers</li><li><strong>Rotate regularly</strong>: Consider rotating your webhook secret periodically</li><li><strong>Log verification failures</strong>: Track failed signature validations to detect potential attacks</li></ol></div>
+<h3>Troubleshooting</h3>
+<h4>Signature Mismatch</h4>
+<p>If you're consistently getting signature mismatches:</p>
+<ol><li><strong>Verify the raw body</strong>: Ensure you're using the raw request body (before JSON parsing) to calculate the signature</li><li><strong>Check the secret</strong>: Confirm you're using the exact secret from the webhook configuration</li><li><strong>Character encoding</strong>: Ensure both the secret and body are handled with correct UTF-8 encoding</li><li><strong>Middleware order</strong>: If using middleware, ensure raw body capture happens before JSON parsing</li><li><strong>Test with cURL</strong>: Use the cURL example above to manually test signature generation</li></ol>
+<h4>Missing Signature Header</h4>
+<p>If the <code>X-Webhook-Signature</code> header is missing:</p>
+<ol><li>Verify you provided a <code>webhook_secret</code> when creating the webhook</li><li>Check your webhook status is <code>active</code></li><li>Review the integration event logs for any errors during webhook delivery</li></ol>
+<h3>Testing Your Webhook</h3>
+<p>Use a webhook testing service like <a href="https://webhook.site">webhook.site</a> or <a href="https://requestbin.com">RequestBin</a> to inspect webhook requests during development. These services display headers, body, and other request details.</p>
+<p>You can also implement local webhook testing by running a simple server on your machine and using a tool like <a href="https://ngrok.com">ngrok</a> to expose it to the internet.</p>
+    </article>
+    
+    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
+  <div class="pager"><a class="page-nav prev" href="/integrations/list-webhook-events.html"><span>Previous</span>List Webhook Events</a><a class="page-nav next" href="/workspaces/list-workspaces.html"><span>Next</span>List Workspaces</a></div></main>
+</div>
+</body>
+</html>

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>create-webhook-integration · SharaForms API Docs</title>
+<meta name="description" content="create-webhook-integration — SharaForms API reference.">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<header class="topbar">
+  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
+  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+</header>
+<div class="layout">
+  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html" class="active">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
+  <main class="content">
+    <article>
+      <h1 class="page-title">create-webhook-integration</h1>
+      <h2>Create Webhook Integration</h2>
+<p>Add a new webhook integration to send form submissions to an external endpoint.</p>
+<h3>Authentication &amp; Scope</h3>
+<p>This endpoint requires a <strong>Personal Access Token</strong> with the <code>manage-integrations</code> ability.</p>
+<h3>Request</h3>
+<div class="paramfield"><span class="param-name">form</span><span class="param-type">number required</span><div class="param-desc"><p>The ID of the form to which the webhook will be added.</p></div></div>
+<div class="paramfield"><span class="param-name">integration_id</span><span class="param-type">string required</span><div class="param-desc"><p>Must be set to <code>"webhook"</code> for webhook integrations.</p></div></div>
+<div class="paramfield"><span class="param-name">status</span><span class="param-type">string required</span><div class="param-desc"><p>The initial status of the webhook. Allowed values: <code>"active"</code>, <code>"inactive"</code>.</p></div></div>
+<div class="paramfield"><span class="param-name">data</span><span class="param-type">object required</span><div class="param-desc"><p>Configuration object containing webhook details.</p>
+<details class="expandable"><summary>data properties</summary><div class="paramfield"><span class="param-name">webhook_url</span><span class="param-type">string required</span><div class="param-desc"><p>The URL where form submissions will be sent. Must be a valid HTTPS URL that resolves only to public IP addresses. Private, loopback, link-local, and cloud metadata addresses are rejected.</p></div></div>
+<div class="paramfield"><span class="param-name">webhook_secret</span><span class="param-type">string</span><div class="param-desc"><p>Optional signing secret for HMAC-SHA256 validation. When provided, webhook     requests will include an <code>X-Webhook-Signature</code> header. Must be at least 12     characters. Recommended for security. Should be a random, cryptographically     secure string.</p></div></div>
+<div class="paramfield"><span class="param-name">webhook_headers</span><span class="param-type">object</span><div class="param-desc"><p>Optional custom HTTP headers to send with each webhook request. Provided as key-value pairs where both keys and values are strings. Maximum 10 headers allowed, each value max 255 characters.</p>
+<p><strong>Blocked headers</strong> (cannot be customized): <code>Authorization</code>, <code>X-Webhook-Signature</code>, <code>Content-Type</code>, <code>Host</code>, <code>Cookie</code>, <code>X-CSRF-Token</code>, <code>Content-Length</code>, and others reserved for security.</p>
+<p>Example:</p>
+<div class="codeblock"><span class="code-lang">json</span><pre><code>{
+    "X-API-Key": "your-api-key",
+    "X-Custom-ID": "custom-value"
+}</code></pre></div></div></div></details></div></div>
+<div class="paramfield"><span class="param-name">logic</span><span class="param-type">object</span><div class="param-desc"><p>Optional conditional logic to trigger the webhook only when specific     conditions are met.</p></div></div>
+
+<h3>Response</h3>
+<p><code>200 OK</code> – Webhook created successfully.</p>
+
+<p><code>403 Forbidden</code> – The token does not have <code>manage-integrations</code> ability or insufficient form permissions.</p>
+<p><code>404 Not Found</code> – Form not found.</p>
+<p><code>422 Unprocessable Entity</code> – Validation error (e.g., invalid or non-public webhook URL, webhook_secret too short, blocked header).</p>
+
+<h3>Security</h3>
+<p>If you provide a <code>webhook_secret</code> when creating the webhook, SharaForms will sign each webhook request with an HMAC-SHA256 signature. This allows you to verify that the webhook came from SharaForms and hasn't been tampered with.</p>
+<p>Webhook URLs are validated when they are saved and again before each delivery. SharaForms does not follow webhook redirects, and private network destinations are blocked unless the instance operator explicitly enables private webhook URLs for a self-hosted deployment.</p>
+<p>Each webhook request will include:</p>
+<ul><li><strong><code>X-Webhook-Signature</code> header</strong>: Contains the signature in format <code>sha256=HEXADECIMAL_VALUE</code></li><li><strong>Custom headers</strong>: Any headers you specified in <code>webhook_headers</code> (except blocked headers)</li><li><strong>JSON body metadata</strong>: The payload includes <code>form_id</code> and <code>submission_id</code> so you can correlate webhook deliveries with SharaForms API submission management endpoints</li></ul>
+<h4>Blocked Headers</h4>
+<p>For security reasons, the following headers cannot be customized:</p>
+<ul><li><code>Authorization</code></li><li><code>X-Webhook-Signature</code></li><li><code>Content-Type</code></li><li><code>Content-Length</code></li><li><code>Host</code></li><li><code>Cookie</code></li><li><code>X-CSRF-Token</code></li><li><code>X-Forwarded-For</code></li><li><code>X-Forwarded-Proto</code></li><li><code>X-Real-IP</code></li></ul>
+<p>See <a href="/integrations/webhook-security.html">Validating Webhook Signatures</a> for implementation examples.</p>
+<div class="admo admo-warning"><p class="admo-label">Warning</p><p>Do not commit webhook secrets to version control. Use environment variables     or secure vaults to manage them.</p></div>
+    </article>
+    
+    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
+  <div class="pager"><a class="page-nav prev" href="/submissions/delete-submission.html"><span>Previous</span>Delete Submission</a><a class="page-nav next" href="/integrations/update-webhook-integration.html"><span>Next</span>Update Webhook Integration</a></div></main>
+</div>
+</body>
+</html>
