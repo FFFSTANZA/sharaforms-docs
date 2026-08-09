@@ -3,26 +3,36 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>update-webhook-integration · SharaForms API Docs</title>
+<title>update-webhook-integration · SharaForms Docs</title>
 <meta name="description" content="update-webhook-integration — SharaForms API reference.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="update-webhook-integration">
+<meta property="og:description" content="update-webhook-integration — SharaForms API reference.">
+<meta property="og:url" content="https://docs.sharaforms.com/integrations/update-webhook-integration.html">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
-  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/" class="active">API Reference</a><a href="/computed-variables.html">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
 </header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
 <div class="layout">
-  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html" class="active">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
-  <main class="content">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html" class="active">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-static">Integrations &amp; Webhooks</span><span class="crumb-sep">/</span><span class="crumb-current">Update Webhook Integration</span></nav>
     <article>
       <h1 class="page-title">update-webhook-integration</h1>
-      <h2>Update Webhook Integration</h2>
+      <h1>Update Webhook Integration</h1>
 <p>Modify an existing webhook integration's URL, secret, headers, or status.</p>
-<h3>Authentication &amp; Scope</h3>
+<h2 id="authentication-amp-scope"><a class="anchor" href="#authentication-amp-scope" aria-hidden="true" tabindex="-1">#</a>Authentication &amp; Scope</h2>
 <p>This endpoint requires a <strong>Personal Access Token</strong> with the <code>manage-integrations</code> ability.</p>
-<h3>Request</h3>
+<h2 id="request"><a class="anchor" href="#request" aria-hidden="true" tabindex="-1">#</a>Request</h2>
 <div class="paramfield"><span class="param-name">form</span><span class="param-type">number required</span><div class="param-desc"><p>The ID of the form containing the webhook.</p></div></div>
 <div class="paramfield"><span class="param-name">integrationid</span><span class="param-type">number required</span><div class="param-desc"><p>The ID of the webhook integration to update.</p></div></div>
 <div class="paramfield"><span class="param-name">integration_id</span><span class="param-type">string required</span><div class="param-desc"><p>Must be set to <code>"webhook"</code>.</p></div></div>
@@ -33,26 +43,34 @@
 <div class="paramfield"><span class="param-name">webhook_headers</span><span class="param-type">object</span><div class="param-desc"><p>Update custom HTTP headers. Replaces all existing headers with the provided ones. Maximum 10 headers allowed. See blocked headers list below for restricted header names.</p></div></div></details></div></div>
 <div class="paramfield"><span class="param-name">logic</span><span class="param-type">object</span><div class="param-desc"><p>Update the conditional logic for webhook triggering.</p></div></div>
 
-<h3>Response</h3>
+<h2 id="response"><a class="anchor" href="#response" aria-hidden="true" tabindex="-1">#</a>Response</h2>
 <p><code>200 OK</code> – Webhook updated successfully.</p>
 
 <p><code>403 Forbidden</code> – The token does not have <code>manage-integrations</code> ability or insufficient form permissions.</p>
 <p><code>404 Not Found</code> – Form or integration not found.</p>
 <p><code>422 Unprocessable Entity</code> – Validation error.</p>
 
-<h3>Security</h3>
+<h2 id="security"><a class="anchor" href="#security" aria-hidden="true" tabindex="-1">#</a>Security</h2>
 <p>Webhook URLs are validated when they are saved and again before each delivery. SharaForms does not follow webhook redirects, and private network destinations are blocked unless the instance operator explicitly enables private webhook URLs for a self-hosted deployment.</p>
-<h4>Secret Rotation</h4>
+<h3 id="secret-rotation"><a class="anchor" href="#secret-rotation" aria-hidden="true" tabindex="-1">#</a>Secret Rotation</h3>
 <p>When updating the <code>webhook_secret</code>, the new secret will be used for all future webhook requests. Existing webhook attempts with the old secret will fail validation on the receiver's end.</p>
 <p>If you need to rotate your secret, consider implementing a grace period on your receiving endpoint to accept both old and new secrets during the transition.</p>
-<h4>Blocked Headers</h4>
+<h3 id="blocked-headers"><a class="anchor" href="#blocked-headers" aria-hidden="true" tabindex="-1">#</a>Blocked Headers</h3>
 <p>For security reasons, the following headers cannot be customized in <code>webhook_headers</code>:</p>
 <ul><li><code>Authorization</code></li><li><code>X-Webhook-Signature</code></li><li><code>Content-Type</code></li><li><code>Content-Length</code></li><li><code>Host</code></li><li><code>Cookie</code></li><li><code>X-CSRF-Token</code></li><li><code>X-Forwarded-For</code></li><li><code>X-Forwarded-Proto</code></li><li><code>X-Real-IP</code></li></ul>
 <p>For signature validation implementation examples, see <a href="/integrations/webhook-security.html">Validating Webhook Signatures</a>.</p>
     </article>
-    
-    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
-  <div class="pager"><a class="page-nav prev" href="/integrations/create-webhook-integration.html"><span>Previous</span>Create Webhook Integration</a><a class="page-nav next" href="/integrations/delete-webhook-integration.html"><span>Next</span>Delete Webhook Integration</a></div></main>
+    <div class="pager"><a class="page-nav prev" href="/integrations/create-webhook-integration.html"><span class="page-nav-label">← Previous</span>Create Webhook Integration</a><a class="page-nav next" href="/integrations/delete-webhook-integration.html"><span class="page-nav-label">Next →</span>Delete Webhook Integration</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#authentication-amp-scope">#Authentication &amp;amp; Scope</a></li><li class="toc-l2"><a href="#request">#Request</a></li><li class="toc-l2"><a href="#response">#Response</a></li><li class="toc-l2"><a href="#security">#Security</a></li><li class="toc-l3"><a href="#secret-rotation">#Secret Rotation</a></li><li class="toc-l3"><a href="#blocked-headers">#Blocked Headers</a></li></ul></aside>
 </div>
 </body>
 </html>

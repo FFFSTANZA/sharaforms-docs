@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Editor Embed Events · SharaForms Docs</title>
+<meta name="description" content="Listen to postMessage events from the SharaForms form editor when embedded in your CMS or application">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="Editor Embed Events">
+<meta property="og:description" content="Listen to postMessage events from the SharaForms form editor when embedded in your CMS or application">
+<meta property="og:url" content="https://docs.sharaforms.com/embedding/editor-embed.html">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+<header class="topbar">
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/">API Reference</a><a href="/computed-variables.html" class="active">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
+</header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html" class="active">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-static">Guides</span><span class="crumb-sep">/</span><span class="crumb-current">Embed Editor</span></nav>
+    <article>
+      <h1 class="page-title">Editor Embed Events</h1>
+      <p>When you embed the SharaForms <strong>form editor</strong> in an iframe (for example inside a headless CMS), the editor sends <code>postMessage</code> events to the parent window so you can react to save, delete, and back-navigation actions.</p>
+<div class="admo admo-warning"><p class="admo-label">Warning</p><p>Editor embedding is available only to approved SharaForms partners with a signed agreement. If SharaForms has not enabled this option for your organization, embedding the editor on your site will not work. To discuss partner access, contact <a href="mailto:support@sharaforms.com">support@sharaforms.com</a>.</p></div>
+<div class="admo admo-note"><p class="admo-label">Note</p><p>These events are separate from the <a href="/embedding/javascript-sdk.html">JavaScript SDK</a> events used for <strong>public form</strong> embeds (<code>submit</code>, <code>pageChange</code>, etc.).</p></div>
+<h2 id="message-format"><a class="anchor" href="#message-format" aria-hidden="true" tabindex="-1">#</a>Message format</h2>
+<p>All editor events use this structure:</p>
+<div class="codeblock"><span class="code-lang">javascript</span><pre><code>{
+  type: 'sharaforms:editor:event',
+  event: 'formSaved' | 'formDeleted' | 'navigateBack',
+  payload: { /* event-specific data */ }
+}</code></pre></div>
+<h2 id="events"><a class="anchor" href="#events" aria-hidden="true" tabindex="-1">#</a>Events</h2>
+<div class="table-wrap"><table><thead><tr><th>Event</th><th>When it fires</th><th>Payload</th></tr></thead><tbody><tr><td><code>formSaved</code></td><td>Editor save succeeds (create or update)</td><td><code>{ form: { id, slug, title, visibility }, isNew: boolean }</code></td></tr><tr><td><code>formDeleted</code></td><td>Form is permanently deleted</td><td><code>{ form: { id, slug, title, visibility } }</code></td></tr><tr><td><code>navigateBack</code></td><td>Editor navbar back button is clicked</td><td><code>{ from: { view, route }, to: { view, route } }</code></td></tr></tbody></table></div>
+<h3 id="view-identifiers"><a class="anchor" href="#view-identifiers" aria-hidden="true" tabindex="-1">#</a>View identifiers</h3>
+<p>The <code>view</code> field in <code>navigateBack</code> payloads uses stable, human-readable IDs:</p>
+<div class="table-wrap"><table><thead><tr><th>Route name</th><th><code>view</code></th></tr></thead><tbody><tr><td><code>home</code></td><td><code>forms_list</code></td></tr><tr><td><code>forms-create</code></td><td><code>create_form</code></td></tr><tr><td><code>forms-slug-edit</code></td><td><code>edit_form</code></td></tr><tr><td><code>forms-slug-show-submissions</code></td><td><code>submissions</code></td></tr><tr><td><code>forms-slug-show-share</code></td><td><code>share</code></td></tr><tr><td><code>forms-slug-show-integrations</code></td><td><code>integrations</code></td></tr><tr><td><code>forms-slug-show-stats</code></td><td><code>stats</code></td></tr><tr><td><code>forms-slug-show-summary</code></td><td><code>summary</code></td></tr><tr><td><code>forms-slug-show-pdf-templates</code></td><td><code>pdf_templates</code></td></tr><tr><td>(unknown)</td><td>raw route name</td></tr></tbody></table></div>
+<h2 id="parent-listener-example"><a class="anchor" href="#parent-listener-example" aria-hidden="true" tabindex="-1">#</a>Parent listener example</h2>
+<div class="codeblock"><span class="code-lang">javascript</span><pre><code>window.addEventListener('message', (event) =&gt; {
+  // Restrict to your SharaForms origin in production
+  if (event.origin !== 'https://your-sharaforms-domain.com') return
+
+  const { type, event: action, payload } = event.data || {}
+  if (type !== 'sharaforms:editor:event') return
+
+  switch (action) {
+    case 'formSaved':
+      console.log('Form saved:', payload.form.slug, payload.isNew ? '(new)' : '(updated)')
+      break
+    case 'formDeleted':
+      console.log('Form deleted:', payload.form.id)
+      break
+    case 'navigateBack':
+      console.log('Navigating back:', payload.from.view, '→', payload.to.view)
+      break
+  }
+})</code></pre></div>
+<h2 id="origin-targeting"><a class="anchor" href="#origin-targeting" aria-hidden="true" tabindex="-1">#</a>Origin targeting</h2>
+<p>By default, messages are sent to the parent with target origin <code>*</code>. For stricter security, pass your CMS origin as a query parameter on the iframe URL:</p>
+<div class="codeblock"><pre><code>https://your-sharaforms-domain.com/forms/my-form/edit?_sdkParentOrigin=https%3A%2F%2Fyour-cms.com</code></pre></div>
+<p>The editor will then post messages only to that origin.</p>
+<h2 id="embedding-the-editor"><a class="anchor" href="#embedding-the-editor" aria-hidden="true" tabindex="-1">#</a>Embedding the editor</h2>
+<p>Embed authenticated editor pages directly in an iframe:</p>
+<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;iframe
+  src="https://your-sharaforms-domain.com/forms/my-form/edit?_sdkParentOrigin=https%3A%2F%2Fyour-cms.com"
+  style="border:none;width:100%;height:100vh;"
+&gt;&lt;/iframe&gt;</code></pre></div>
+<p>Your users must be authenticated with SharaForms (session cookie) for editor pages to load.</p>
+    </article>
+    <div class="pager"><a class="page-nav prev" href="/embedding/javascript-sdk.html"><span class="page-nav-label">← Previous</span>JavaScript SDK (Embedding)</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#message-format">#Message format</a></li><li class="toc-l2"><a href="#events">#Events</a></li><li class="toc-l3"><a href="#view-identifiers">#View identifiers</a></li><li class="toc-l2"><a href="#parent-listener-example">#Parent listener example</a></li><li class="toc-l2"><a href="#origin-targeting">#Origin targeting</a></li><li class="toc-l2"><a href="#embedding-the-editor">#Embedding the editor</a></li></ul></aside>
+</div>
+</body>
+</html>

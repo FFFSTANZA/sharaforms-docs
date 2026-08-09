@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Changelog · SharaForms Docs</title>
+<meta name="description" content="Notable updates to the SharaForms API.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="Changelog">
+<meta property="og:description" content="Notable updates to the SharaForms API.">
+<meta property="og:url" content="https://docs.sharaforms.com/changelog.html">
+<link rel="stylesheet" href="/styles.css">
+<link rel="icon" href="data:,">
+</head>
+<body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
+<header class="topbar">
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/" class="active">API Reference</a><a href="/computed-variables.html">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
+</header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
+<div class="layout">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html" class="active">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-current">Changelog</span></nav>
+    <article>
+      <h1 class="page-title">Changelog</h1>
+      <h2 id="2026-05-27-workspace-invite-listing-requires-admin-access"><a class="anchor" href="#2026-05-27-workspace-invite-listing-requires-admin-access" aria-hidden="true" tabindex="-1">#</a>2026-05-27 – Workspace invite listing requires admin access</h2>
+<p>The workspace invite listing endpoint now requires workspace admin access:</p>
+<ul><li><code>GET /open/workspaces/{workspaceId}/invites</code></li></ul>
+<h3 id="what-changed"><a class="anchor" href="#what-changed" aria-hidden="true" tabindex="-1">#</a>What changed</h3>
+<ul><li>Non-admin workspace members can no longer list pending or accepted workspace invites.</li><li>Personal Access Tokens must include <code>workspaces-write</code> and belong to a workspace admin.</li><li>Invite responses do not expose invite tokens.</li></ul>
+<h3 id="migration-guide"><a class="anchor" href="#migration-guide" aria-hidden="true" tabindex="-1">#</a>Migration guide</h3>
+<p>If your integration lists workspace invites, use an admin-owned token with the <code>workspaces-write</code> ability. Continue using <code>GET /open/workspaces/{workspaceId}/users</code> with <code>workspace-users-read</code> when you only need accepted workspace members.</p>
+<h2 id="2025-01-02-optimized-form-list-endpoint"><a class="anchor" href="#2025-01-02-optimized-form-list-endpoint" aria-hidden="true" tabindex="-1">#</a>2025-01-02 – Optimized form list endpoint</h2>
+<p>The form list endpoint now returns <strong>lightweight form summaries</strong> for improved performance:</p>
+<ul><li><code>GET /open/workspaces/{workspaceId}/forms</code></li></ul>
+<div class="admo admo-info"><p class="admo-label">Info</p><p>The deprecated <code>GET /open/forms</code> endpoint (which lists all forms across workspaces) has been removed from the documentation. It remains available for existing Zapier integrations but is not recommended for new implementations.</p></div>
+<h3 id="what-changed-2"><a class="anchor" href="#what-changed-2" aria-hidden="true" tabindex="-1">#</a>What changed</h3>
+<p>This endpoint no longer includes the <code>properties</code> array (form fields and blocks) in the response. This significantly reduces response size and improves load times, especially for workspaces with many forms or complex form structures.</p>
+<h3 id="response-fields"><a class="anchor" href="#response-fields" aria-hidden="true" tabindex="-1">#</a>Response fields</h3>
+<p>The list endpoint now returns these fields:</p>
+<div class="table-wrap"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody><tr><td><code>id</code>, <code>slug</code>, <code>title</code>, <code>visibility</code>, <code>tags</code></td><td>Core form identification</td></tr><tr><td><code>views_count</code>, <code>submissions_count</code></td><td>Form statistics</td></tr><tr><td><code>created_at</code>, <code>updated_at</code>, <code>last_edited_human</code></td><td>Timestamps (ISO 8601 + human-readable)</td></tr><tr><td><code>closes_at</code>, <code>is_closed</code></td><td>Form closure status</td></tr><tr><td><code>max_submissions_count</code>, <code>max_number_of_submissions_reached</code></td><td>Submission limits</td></tr><tr><td><code>is_pro</code>, <code>workspace_id</code>, <code>share_url</code></td><td>Workspace and sharing info</td></tr></tbody></table></div>
+<h3 id="migration-guide-2"><a class="anchor" href="#migration-guide-2" aria-hidden="true" tabindex="-1">#</a>Migration guide</h3>
+<p>If your integration relies on <code>properties</code> from list endpoints, update your code to:</p>
+<ol><li>Fetch the form list to get form IDs/slugs</li><li>Call <code>GET /open/forms/{slug}</code> for each form where you need the full <code>properties</code> array</li></ol>
+<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Before: properties were included in list response
+const forms = await fetch('/open/workspaces/1/forms');
+
+// After: fetch full form details when needed
+const formList = await fetch('/open/workspaces/1/forms');
+const fullForm = await fetch(`/open/forms/${formList.data[0].slug}`);
+// fullForm.properties is now available</code></pre></div>
+<hr>
+<h2 id="2024-06-18-api-creation"><a class="anchor" href="#2024-06-18-api-creation" aria-hidden="true" tabindex="-1">#</a>2024-06-18 – API creation 🎉</h2>
+<p>The first public version of the SharaForms REST API is live! You can now:</p>
+<ul><li>Manage workspaces and members</li><li>Create, update and delete forms</li><li>Retrieve and manage submissions</li><li>Generate personal access tokens with granular abilities</li></ul>
+<p>Stay tuned for more endpoints and features.</p>
+    </article>
+    <div class="pager"><a class="page-nav prev" href="/api-keys.html"><span class="page-nav-label">← Previous</span>API Keys</a><a class="page-nav next" href="/forms/list-workspace-forms.html"><span class="page-nav-label">Next →</span>List Workspace Forms</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#2026-05-27-workspace-invite-listing-requires-admin-access">#2026-05-27 – Workspace invite listing requires admin access</a></li><li class="toc-l3"><a href="#what-changed">#What changed</a></li><li class="toc-l3"><a href="#migration-guide">#Migration guide</a></li><li class="toc-l2"><a href="#2025-01-02-optimized-form-list-endpoint">#2025-01-02 – Optimized form list endpoint</a></li><li class="toc-l3"><a href="#what-changed-2">#What changed</a></li><li class="toc-l3"><a href="#response-fields">#Response fields</a></li><li class="toc-l3"><a href="#migration-guide-2">#Migration guide</a></li><li class="toc-l2"><a href="#2024-06-18-api-creation">#2024-06-18 – API creation 🎉</a></li></ul></aside>
+</div>
+</body>
+</html>

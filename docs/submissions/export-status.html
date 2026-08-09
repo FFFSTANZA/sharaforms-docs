@@ -3,33 +3,43 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>export-status · SharaForms API Docs</title>
+<title>export-status · SharaForms Docs</title>
 <meta name="description" content="export-status — SharaForms API reference.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="export-status">
+<meta property="og:description" content="export-status — SharaForms API reference.">
+<meta property="og:url" content="https://docs.sharaforms.com/submissions/export-status.html">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
-  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/" class="active">API Reference</a><a href="/computed-variables.html">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
 </header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
 <div class="layout">
-  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html" class="active">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
-  <main class="content">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html" class="active">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-static">Submissions</span><span class="crumb-sep">/</span><span class="crumb-current">Check Export Status</span></nav>
     <article>
       <h1 class="page-title">export-status</h1>
-      <h2>Check Export Status</h2>
+      <h1>Check Export Status</h1>
 <p>Check the status and progress of an asynchronous CSV export job.</p>
-<h3>Authentication &amp; Scope</h3>
+<h2 id="authentication-amp-scope"><a class="anchor" href="#authentication-amp-scope" aria-hidden="true" tabindex="-1">#</a>Authentication &amp; Scope</h2>
 <p>Requires <code>forms-read</code> ability.</p>
-<h3>Request</h3>
+<h2 id="request"><a class="anchor" href="#request" aria-hidden="true" tabindex="-1">#</a>Request</h2>
 <div class="codeblock"><span class="code-lang">http</span><pre><code>GET /open/forms/{id}/submissions/export/{job_id}/status HTTP/1.1
 Host: api.sharaforms.com
 Authorization: Bearer &lt;token&gt;</code></pre></div>
-<h4>Path Parameters</h4>
+<h3 id="path-parameters"><a class="anchor" href="#path-parameters" aria-hidden="true" tabindex="-1">#</a>Path Parameters</h3>
 <div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>id</td><td>number</td><td>Numeric ID of the form.</td></tr><tr><td>job_id</td><td>string</td><td>Export job identifier.</td></tr></tbody></table></div>
-<h3>Response</h3>
-<h4>Processing Status</h4>
+<h2 id="response"><a class="anchor" href="#response" aria-hidden="true" tabindex="-1">#</a>Response</h2>
+<h3 id="processing-status"><a class="anchor" href="#processing-status" aria-hidden="true" tabindex="-1">#</a>Processing Status</h3>
 <div class="codeblock"><span class="code-lang">json</span><pre><code>{
     "status": "processing",
     "progress": 65,
@@ -41,7 +51,7 @@ Authorization: Bearer &lt;token&gt;</code></pre></div>
     "updated_at": "2024-06-12T09:16:10.000Z",
     "job_id": "export_abc123def456"
 }</code></pre></div>
-<h4>Completed Status</h4>
+<h3 id="completed-status"><a class="anchor" href="#completed-status" aria-hidden="true" tabindex="-1">#</a>Completed Status</h3>
 <div class="codeblock"><span class="code-lang">json</span><pre><code>{
     "status": "completed",
     "progress": 100,
@@ -55,7 +65,7 @@ Authorization: Bearer &lt;token&gt;</code></pre></div>
     "updated_at": "2024-06-12T09:16:30.000Z",
     "job_id": "export_abc123def456"
 }</code></pre></div>
-<h4>Failed Status</h4>
+<h3 id="failed-status"><a class="anchor" href="#failed-status" aria-hidden="true" tabindex="-1">#</a>Failed Status</h3>
 <div class="codeblock"><span class="code-lang">json</span><pre><code>{
     "status": "failed",
     "progress": 0,
@@ -66,22 +76,30 @@ Authorization: Bearer &lt;token&gt;</code></pre></div>
     "updated_at": "2024-06-12T09:15:45.000Z",
     "job_id": "export_abc123def456"
 }</code></pre></div>
-<h3>Response Fields</h3>
+<h2 id="response-fields"><a class="anchor" href="#response-fields" aria-hidden="true" tabindex="-1">#</a>Response Fields</h2>
 <div class="table-wrap"><table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>status</code></td><td>string</td><td>Job status: <code>processing</code>, <code>completed</code>, or <code>failed</code></td></tr><tr><td><code>progress</code></td><td>number</td><td>Completion percentage (0-100)</td></tr><tr><td><code>form_id</code></td><td>number</td><td>ID of the form being exported</td></tr><tr><td><code>user_id</code></td><td>number</td><td>ID of the user who initiated the export</td></tr><tr><td><code>job_id</code></td><td>string</td><td>Export job identifier</td></tr><tr><td><code>processed_submissions</code></td><td>number</td><td>Number of submissions processed so far</td></tr><tr><td><code>total_submissions</code></td><td>number</td><td>Total number of submissions to process</td></tr><tr><td><code>file_url</code></td><td>string</td><td>Download URL for completed exports</td></tr><tr><td><code>expires_at</code></td><td>string</td><td>File expiration timestamp (24 hours from completion)</td></tr><tr><td><code>error_message</code></td><td>string</td><td>Error description for failed exports</td></tr><tr><td><code>created_at</code></td><td>string</td><td>Job creation timestamp</td></tr><tr><td><code>updated_at</code></td><td>string</td><td>Last update timestamp</td></tr></tbody></table></div>
 <div class="admo admo-note"><p class="admo-label">Note</p><p>Only <code>status</code>, <code>progress</code>, <code>form_id</code>, <code>user_id</code>, <code>job_id</code>, <code>created_at</code>, and     <code>updated_at</code> are always present. Other fields appear based on the job state.</p></div>
 <div class="admo admo-warning"><p class="admo-label">Warning</p><p>Export files are automatically deleted after 24 hours for security and     storage management.</p></div>
-<h3>Error Responses</h3>
+<h2 id="error-responses"><a class="anchor" href="#error-responses" aria-hidden="true" tabindex="-1">#</a>Error Responses</h2>
 <p><code>404 Not Found</code> – Export job not found or has expired.</p>
 <p><code>403 Forbidden</code> – The token lacks <code>forms-read</code> or you don't have access.</p>
-<h3>Usage Example</h3>
+<h2 id="usage-example"><a class="anchor" href="#usage-example" aria-hidden="true" tabindex="-1">#</a>Usage Example</h2>
 <p>After initiating an export that returns <code>is_async: true</code>, poll this endpoint to track progress:</p>
-<ol class="steps"><li><strong>Start export.</strong> <p>Call the export endpoint and receive a <code>job_id</code>.</p></li><li><strong>Poll status.</strong> <p>Use the <code>job_id</code> to check export progress every few seconds.</p>
-<div class="admo admo-tip"><p class="admo-label">Tip</p><p>Avoid polling too frequently. Check every 2-5 seconds for optimal         performance.</p></div></li><li><strong>Download file.</strong> <p>When status is <code>completed</code>, use the <code>file_url</code> to download your CSV file.</p>
+<ol class="steps"><li><strong>Start export</strong><p>Call the export endpoint and receive a <code>job_id</code>.</p></li><li><strong>Poll status</strong><p>Use the <code>job_id</code> to check export progress every few seconds.</p>
+<div class="admo admo-tip"><p class="admo-label">Tip</p><p>Avoid polling too frequently. Check every 2-5 seconds for optimal         performance.</p></div></li><li><strong>Download file</strong><p>When status is <code>completed</code>, use the <code>file_url</code> to download your CSV file.</p>
 <div class="admo admo-warning"><p class="admo-label">Warning</p><p>Download the file promptly as it expires in 24 hours.</p></div></li></ol>
     </article>
-    
-    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
-  <div class="pager"><a class="page-nav prev" href="/submissions/export-submissions-csv.html"><span>Previous</span>Export Submissions (CSV)</a><a class="page-nav next" href="/submissions/update-submission.html"><span>Next</span>Update Submission</a></div></main>
+    <div class="pager"><a class="page-nav prev" href="/submissions/export-submissions-csv.html"><span class="page-nav-label">← Previous</span>Export Submissions (CSV)</a><a class="page-nav next" href="/submissions/update-submission.html"><span class="page-nav-label">Next →</span>Update Submission</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#authentication-amp-scope">#Authentication &amp;amp; Scope</a></li><li class="toc-l2"><a href="#request">#Request</a></li><li class="toc-l3"><a href="#path-parameters">#Path Parameters</a></li><li class="toc-l2"><a href="#response">#Response</a></li><li class="toc-l3"><a href="#processing-status">#Processing Status</a></li><li class="toc-l3"><a href="#completed-status">#Completed Status</a></li><li class="toc-l3"><a href="#failed-status">#Failed Status</a></li><li class="toc-l2"><a href="#response-fields">#Response Fields</a></li><li class="toc-l2"><a href="#error-responses">#Error Responses</a></li><li class="toc-l2"><a href="#usage-example">#Usage Example</a></li></ul></aside>
 </div>
 </body>
 </html>

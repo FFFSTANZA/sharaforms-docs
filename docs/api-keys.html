@@ -3,40 +3,58 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>API Keys · SharaForms API Docs</title>
+<title>API Keys · SharaForms Docs</title>
 <meta name="description" content="Generate and manage Personal Access Tokens on SharaForms.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="API Keys">
+<meta property="og:description" content="Generate and manage Personal Access Tokens on SharaForms.">
+<meta property="og:url" content="https://docs.sharaforms.com/api-keys.html">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
-  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/" class="active">API Reference</a><a href="/computed-variables.html">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
 </header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
 <div class="layout">
-  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html" class="active">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
-  <main class="content">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html" class="active">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-current">API Keys</span></nav>
     <article>
       <h1 class="page-title">API Keys</h1>
       <p>Personal Access Tokens are the credentials you'll use to authenticate with the SharaForms REST API. They're scoped, revocable, and tied to your user account – <strong>keep them secret</strong>.</p>
-<h3>Creating a token</h3>
+<h2 id="creating-a-token"><a class="anchor" href="#creating-a-token" aria-hidden="true" tabindex="-1">#</a>Creating a token</h2>
 <ol><li>Sign in to your SharaForms account.</li><li>Open <strong>Settings → Access Tokens</strong> (<code>/home?user-settings=access-tokens</code>).</li><li>Click <strong>Create new token</strong>.</li><li>Pick a descriptive name (e.g. "Zapier Integration").</li><li>Select the abilities you want to grant (see the table below).</li><li>Click <strong>Create</strong> and copy the token value – you <strong>won't</strong> be able to see it again after closing the dialog.</li></ol>
-<figure class="frame"><img src="images/create-token.png" alt="Create token" loading="lazy"></figure>
-<h3>Abilities</h3>
+<p>&lt;Frame&gt;     &lt;img src="/api-reference/images/create-token.png" alt="Create token" /&gt; &lt;/Frame&gt;</p>
+<h2 id="abilities"><a class="anchor" href="#abilities" aria-hidden="true" tabindex="-1">#</a>Abilities</h2>
 <div class="table-wrap"><table><thead><tr><th>Ability</th><th>Grants</th></tr></thead><tbody><tr><td>workspaces-read</td><td>List workspaces</td></tr><tr><td>workspaces-write</td><td>Create, update or delete workspaces</td></tr><tr><td>workspace-users-read</td><td>List members and invites</td></tr><tr><td>workspace-users-write</td><td>Manage members and invites</td></tr><tr><td>forms-read</td><td>List forms and submissions</td></tr><tr><td>forms-write</td><td>Create or modify forms and submissions</td></tr></tbody></table></div>
 <p>You can combine abilities as needed – choose the minimum set your integration requires.</p>
-<h3>Using the token</h3>
+<h2 id="using-the-token"><a class="anchor" href="#using-the-token" aria-hidden="true" tabindex="-1">#</a>Using the token</h2>
 <p>Send the token in the <code>Authorization</code> header:</p>
 <div class="codeblock"><span class="code-lang">http</span><pre><code>Authorization: Bearer &lt;access_token&gt;</code></pre></div>
-<h3>Revoking a token</h3>
+<h2 id="revoking-a-token"><a class="anchor" href="#revoking-a-token" aria-hidden="true" tabindex="-1">#</a>Revoking a token</h2>
 <p>If a token is leaked or no longer needed:</p>
 <ol><li>Go back to <strong>Settings → Access Tokens</strong>.</li><li>Click <strong>Revoke</strong> next to the token.</li><li>Any further API requests that use that token will receive <code>401 Unauthorized</code>.</li></ol>
-<h3>Best practices</h3>
+<h2 id="best-practices"><a class="anchor" href="#best-practices" aria-hidden="true" tabindex="-1">#</a>Best practices</h2>
 <ul><li>Store tokens securely (environment variables, secret managers, CI secrets).</li><li>Use a dedicated token per integration – easier to revoke individually.</li><li>Avoid committing tokens to version control.</li><li>Rotate tokens periodically.</li></ul>
     </article>
-    
-    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
-  <div class="pager"><a class="page-nav prev" href="/index.html"><span>Previous</span>Introduction</a><a class="page-nav next" href="/forms/list-workspace-forms.html"><span>Next</span>List Workspace Forms</a></div></main>
+    <div class="pager"><a class="page-nav prev" href="/index.html"><span class="page-nav-label">← Previous</span>Introduction</a><a class="page-nav next" href="/changelog.html"><span class="page-nav-label">Next →</span>Changelog</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#creating-a-token">#Creating a token</a></li><li class="toc-l2"><a href="#abilities">#Abilities</a></li><li class="toc-l2"><a href="#using-the-token">#Using the token</a></li><li class="toc-l2"><a href="#revoking-a-token">#Revoking a token</a></li><li class="toc-l2"><a href="#best-practices">#Best practices</a></li></ul></aside>
 </div>
 </body>
 </html>

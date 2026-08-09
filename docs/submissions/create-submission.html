@@ -3,50 +3,60 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>create-submission · SharaForms API Docs</title>
+<title>create-submission · SharaForms Docs</title>
 <meta name="description" content="create-submission — SharaForms API reference.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="create-submission">
+<meta property="og:description" content="create-submission — SharaForms API reference.">
+<meta property="og:url" content="https://docs.sharaforms.com/submissions/create-submission.html">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
-  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/" class="active">API Reference</a><a href="/computed-variables.html">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
 </header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
 <div class="layout">
-  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html" class="active">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
-  <main class="content">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html" class="active">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-static">Submissions</span><span class="crumb-sep">/</span><span class="crumb-current">Create Submission (Public)</span></nav>
     <article>
       <h1 class="page-title">create-submission</h1>
-      <h2>Create Form Submission</h2>
+      <h1>Create Form Submission</h1>
 <p>Submit a new response to a form using the SharaForms API. This endpoint allows you to programmatically collect form data without requiring user authentication.</p>
 <div class="admo admo-info"><p class="admo-label">Info</p><p>This is a public endpoint designed for form submissions. No API     authentication is required.</p></div>
-<h3>Prerequisites</h3>
+<h2 id="prerequisites"><a class="anchor" href="#prerequisites" aria-hidden="true" tabindex="-1">#</a>Prerequisites</h2>
 <p>Before submitting to a form, you'll need:</p>
 <ul><li>A published form with a valid slug or UUID</li><li>Knowledge of the form's field IDs (available via the <a href="/forms/get-form.html">Get Form</a> endpoint)</li><li>Form fields configured according to your validation requirements</li></ul>
 <div class="admo admo-tip"><p class="admo-label">Tip</p><p>You can find your form's slug in the SharaForms dashboard under form settings,     or use the form's UUID which is also displayed in the dashboard.</p></div>
-<h3>Request</h3>
+<h2 id="request"><a class="anchor" href="#request" aria-hidden="true" tabindex="-1">#</a>Request</h2>
 
-<h4>Path Parameters</h4>
+<h3 id="path-parameters"><a class="anchor" href="#path-parameters" aria-hidden="true" tabindex="-1">#</a>Path Parameters</h3>
 <div class="paramfield"><span class="param-name">slug</span><span class="param-type">string required</span><div class="param-desc"><p>The form identifier - either a human-readable slug (e.g.,     <code>customer-feedback</code>) or UUID. You can find this in your SharaForms dashboard     under form settings.</p></div></div>
-<h4>Request Body</h4>
+<h3 id="request-body"><a class="anchor" href="#request-body" aria-hidden="true" tabindex="-1">#</a>Request Body</h3>
 <div class="paramfield"><span class="param-name">[field_id]</span><span class="param-type">string|number|boolean|array</span><div class="param-desc"><p><strong>Dynamic field data</strong>: Each form field is identified by its unique UUID. The value type depends on the field type:</p>
 <ul><li>Text fields: <code>string</code></li><li>Number fields: <code>number</code></li><li>Checkbox fields: <code>boolean</code></li><li>Multi-select fields: <code>array</code></li></ul>
 <p><strong>Example</strong>: <code>"3700d380-197b-47b9-a008-3acc31bbd506": "Alice Johnson"</code></p></div></div>
 <div class="paramfield"><span class="param-name">completion_time</span><span class="param-type">number</span><div class="param-desc"><p>Time in seconds it took the user to complete the form. Used for analytics     and form optimization insights.</p></div></div>
 <div class="paramfield"><span class="param-name">is_partial</span><span class="param-type">boolean</span><span class="param-default">default: false</span><div class="param-desc"><p>Submit the form as a partial submission. Only works if the form has "Collect partial submissions" enabled in its settings.</p>
 <p>When <code>true</code>, the response includes a <code>submission_hash</code> that can be used to update the same submission later.</p></div></div>
-<h3>Response</h3>
+<h2 id="response"><a class="anchor" href="#response" aria-hidden="true" tabindex="-1">#</a>Response</h2>
 
-<h4>Success Response Fields</h4>
+<h3 id="success-response-fields"><a class="anchor" href="#success-response-fields" aria-hidden="true" tabindex="-1">#</a>Success Response Fields</h3>
 <div class="respfield"><span class="param-name">type</span><span class="param-type">string</span><div class="param-desc"><p>Response type indicator. Always <code>"success"</code> for successful submissions.</p></div></div>
 <div class="respfield"><span class="param-name">message</span><span class="param-type">string</span><div class="param-desc"><p>Human-readable success message describing the submission result.</p></div></div>
 <div class="respfield"><span class="param-name">submission_id</span><span class="param-type">string|null</span><div class="param-desc"><p>Unique identifier for the created submission. Returns <code>null</code> for partial     submissions.</p></div></div>
 <div class="respfield"><span class="param-name">is_first_submission</span><span class="param-type">boolean</span><div class="param-desc"><p>Indicates whether this is the first submission for this form. Useful for     triggering welcome flows or first-time user experiences.</p></div></div>
 <div class="respfield"><span class="param-name">redirect</span><span class="param-type">boolean</span><div class="param-desc"><p>Indicates if the form has a custom redirect URL configured. Always <code>false</code>     for API submissions.</p></div></div>
 <div class="respfield"><span class="param-name">submission_hash</span><span class="param-type">string|null</span><div class="param-desc"><p>Unique hash for partial submissions that can be used to update the     submission later. Only present when <code>is_partial: true</code>.</p></div></div>
-<h3>Use Cases</h3>
-<h4>Basic Form Submission</h4>
+<h2 id="use-cases"><a class="anchor" href="#use-cases" aria-hidden="true" tabindex="-1">#</a>Use Cases</h2>
+<h3 id="basic-form-submission"><a class="anchor" href="#basic-form-submission" aria-hidden="true" tabindex="-1">#</a>Basic Form Submission</h3>
 <p>Submit a complete contact form with validation:</p>
 <div class="codeblock"><span class="code-lang">javascript</span><pre><code>const submitContactForm = async (formData) =&gt; {
     try {
@@ -74,7 +84,7 @@
         throw error;
     }
 };</code></pre></div>
-<h4>Partial Submission Workflow</h4>
+<h3 id="partial-submission-workflow"><a class="anchor" href="#partial-submission-workflow" aria-hidden="true" tabindex="-1">#</a>Partial Submission Workflow</h3>
 <p>Save progress and complete later:</p>
 <div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Save partial submission
 const saveProgress = async (partialData) =&gt; {
@@ -115,9 +125,17 @@ const completeSubmission = async (finalData) =&gt; {
     return await response.json();
 };</code></pre></div>
     </article>
-    
-    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
-  <div class="pager"><a class="page-nav prev" href="/forms/delete-form.html"><span>Previous</span>Delete Form</a><a class="page-nav next" href="/submissions/list-submissions.html"><span>Next</span>List Submissions</a></div></main>
+    <div class="pager"><a class="page-nav prev" href="/forms/delete-form.html"><span class="page-nav-label">← Previous</span>Delete Form</a><a class="page-nav next" href="/submissions/list-submissions.html"><span class="page-nav-label">Next →</span>List Submissions</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#prerequisites">#Prerequisites</a></li><li class="toc-l2"><a href="#request">#Request</a></li><li class="toc-l3"><a href="#path-parameters">#Path Parameters</a></li><li class="toc-l3"><a href="#request-body">#Request Body</a></li><li class="toc-l2"><a href="#response">#Response</a></li><li class="toc-l3"><a href="#success-response-fields">#Success Response Fields</a></li><li class="toc-l2"><a href="#use-cases">#Use Cases</a></li><li class="toc-l3"><a href="#basic-form-submission">#Basic Form Submission</a></li><li class="toc-l3"><a href="#partial-submission-workflow">#Partial Submission Workflow</a></li></ul></aside>
 </div>
 </body>
 </html>

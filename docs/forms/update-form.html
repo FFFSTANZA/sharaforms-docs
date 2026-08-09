@@ -3,44 +3,54 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>update-form · SharaForms API Docs</title>
+<title>update-form · SharaForms Docs</title>
 <meta name="description" content="update-form — SharaForms API reference.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="update-form">
+<meta property="og:description" content="update-form — SharaForms API reference.">
+<meta property="og:url" content="https://docs.sharaforms.com/forms/update-form.html">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
-  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/" class="active">API Reference</a><a href="/computed-variables.html">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
 </header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
 <div class="layout">
-  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html" class="active">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
-  <main class="content">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html" class="active">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-static">Forms</span><span class="crumb-sep">/</span><span class="crumb-current">Update Form</span></nav>
     <article>
       <h1 class="page-title">update-form</h1>
-      <h2>Update Form</h2>
+      <h1>Update Form</h1>
 <p>Update an existing form. You can modify any attribute that can be set when creating a form.</p>
-<h3>Authentication &amp; Scope</h3>
+<h2 id="authentication-amp-scope"><a class="anchor" href="#authentication-amp-scope" aria-hidden="true" tabindex="-1">#</a>Authentication &amp; Scope</h2>
 <p>Requires a token with the <code>forms-write</code> ability.</p>
-<h3>Request</h3>
+<h2 id="request"><a class="anchor" href="#request" aria-hidden="true" tabindex="-1">#</a>Request</h2>
 <div class="codeblock"><span class="code-lang">http</span><pre><code>PUT /open/forms/{id} HTTP/1.1
 Host: api.sharaforms.com
 Content-Type: application/json
 Authorization: Bearer &lt;token&gt;</code></pre></div>
-<h4>Path Parameters</h4>
+<h3 id="path-parameters"><a class="anchor" href="#path-parameters" aria-hidden="true" tabindex="-1">#</a>Path Parameters</h3>
 <div class="table-wrap"><table><thead><tr><th>Parameter</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>id</td><td>number</td><td>Numeric ID of the form to edit</td></tr></tbody></table></div>
-<h4>Body Parameters</h4>
+<h3 id="body-parameters"><a class="anchor" href="#body-parameters" aria-hidden="true" tabindex="-1">#</a>Body Parameters</h3>
 <p>All fields from the <a href="create-form.html">Create Form</a> endpoint may be supplied. However, <strong>the API validation requires you to include specific fields</strong> in every update request, even if you only want to change one optional field.</p>
-<h5>Required Fields in Updates</h5>
+<h4 id="required-fields-in-updates"><a class="anchor" href="#required-fields-in-updates" aria-hidden="true" tabindex="-1">#</a>Required Fields in Updates</h4>
 <p>These fields must always be included:</p>
 <div class="table-wrap"><table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td>title</td><td>string</td><td>Form title (max 60 characters)</td></tr><tr><td>visibility</td><td>string</td><td>Form visibility state (<code>"public"</code>, <code>"closed"</code>, <code>"draft"</code>)</td></tr><tr><td>language</td><td>string</td><td>Two-letter ISO language code (e.g. <code>en</code>)</td></tr><tr><td>theme</td><td>string</td><td>Form theme</td></tr><tr><td>presentation_style</td><td>string</td><td>How the form is presented</td></tr><tr><td>width</td><td>string</td><td>Form container width</td></tr><tr><td>size</td><td>string</td><td>Form text size</td></tr><tr><td>border_radius</td><td>string</td><td>Form border radius</td></tr><tr><td>dark_mode</td><td>string</td><td>Dark mode setting</td></tr><tr><td>color</td><td>string</td><td>Primary color (hex format)</td></tr><tr><td>uppercase_labels</td><td>boolean</td><td>Whether labels should be uppercase</td></tr><tr><td>no_branding</td><td>boolean</td><td>Hide SharaForms branding</td></tr><tr><td>transparent_background</td><td>boolean</td><td>Use transparent background</td></tr><tr><td>properties</td><td>array</td><td>Array of form fields/blocks — <strong>must never be empty</strong>, or existing properties will be lost</td></tr><tr><td>…other fields</td><td>mixed</td><td>All other fields from Create Form (description, logo_picture, etc.)</td></tr></tbody></table></div>
 <div class="admo admo-warning"><p class="admo-label">Warning</p><p><strong>Important:</strong> Omitting any of the required fields will result in a validation error. You must include all these fields in your update request, even if you're only changing one optional field. Additionally, the <code>properties</code> array cannot be empty — always send your complete form fields.</p></div>
-<h4>Recommended Update Pattern</h4>
+<h3 id="recommended-update-pattern"><a class="anchor" href="#recommended-update-pattern" aria-hidden="true" tabindex="-1">#</a>Recommended Update Pattern</h3>
 <p>To safely update a form without accidentally losing properties:</p>
 <ol><li><strong>Fetch</strong> the current form state using the <a href="get-form.html">Get Form</a> endpoint</li><li><strong>Modify</strong> only the fields you want to change in the fetched response</li><li><strong>Send</strong> the complete updated form (including all required fields and properties) back to this endpoint</li></ol>
 <p>This ensures you retain all existing form fields and don't accidentally overwrite them with empty arrays.</p>
 <div class="admo admo-tip"><p class="admo-label">Tip</p><p><strong>Best Practice Example:</strong> If you only want to change form visibility, fetch the form first, update only the <code>visibility</code> field locally, then send the complete form back with all its properties intact.</p></div>
-<h4>Body Example</h4>
+<h3 id="body-example"><a class="anchor" href="#body-example" aria-hidden="true" tabindex="-1">#</a>Body Example</h3>
 <p>Example request updating title and visibility (note: all required fields must be included):</p>
 <div class="codeblock"><span class="code-lang">json</span><pre><code>{
     "title": "Customer Feedback (v2)",
@@ -66,13 +76,21 @@ Authorization: Bearer &lt;token&gt;</code></pre></div>
     ],
     "closed_text": "Form is currently closed"
 }</code></pre></div>
-<h3>Response</h3>
+<h2 id="response"><a class="anchor" href="#response" aria-hidden="true" tabindex="-1">#</a>Response</h2>
 <p><code>200 OK</code> – Returns the updated <code>Form</code> object.</p>
 <p><code>403 Forbidden</code> – The token lacks <code>forms-write</code> or you don't have permission.</p>
     </article>
-    
-    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
-  <div class="pager"><a class="page-nav prev" href="/forms/get-form.html"><span>Previous</span>Get Form</a><a class="page-nav next" href="/forms/delete-form.html"><span>Next</span>Delete Form</a></div></main>
+    <div class="pager"><a class="page-nav prev" href="/forms/get-form.html"><span class="page-nav-label">← Previous</span>Get Form</a><a class="page-nav next" href="/forms/delete-form.html"><span class="page-nav-label">Next →</span>Delete Form</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#authentication-amp-scope">#Authentication &amp;amp; Scope</a></li><li class="toc-l2"><a href="#request">#Request</a></li><li class="toc-l3"><a href="#path-parameters">#Path Parameters</a></li><li class="toc-l3"><a href="#body-parameters">#Body Parameters</a></li><li class="toc-l3"><a href="#recommended-update-pattern">#Recommended Update Pattern</a></li><li class="toc-l3"><a href="#body-example">#Body Example</a></li><li class="toc-l2"><a href="#response">#Response</a></li></ul></aside>
 </div>
 </body>
 </html>

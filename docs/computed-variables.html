@@ -3,84 +3,94 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Computed Variables · SharaForms API Docs</title>
+<title>Computed Variables · SharaForms Docs</title>
 <meta name="description" content="Create dynamic calculated fields using Excel-like formulas that can be used throughout your form and integrations.">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="Computed Variables">
+<meta property="og:description" content="Create dynamic calculated fields using Excel-like formulas that can be used throughout your form and integrations.">
+<meta property="og:url" content="https://docs.sharaforms.com/computed-variables.html">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
-  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/">API Reference</a><a href="/computed-variables.html" class="active">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
 </header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
 <div class="layout">
-  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html" class="active">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
-  <main class="content">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html" class="active">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-static">Guides</span><span class="crumb-sep">/</span><span class="crumb-current">Computed Variables</span></nav>
     <article>
       <h1 class="page-title">Computed Variables</h1>
       <div class="admo admo-info"><p class="admo-label">Info</p><p>Computed variables allow form owners to define calculated values using formulas. These variables can reference form fields, use functions, and even reference other computed variables. They work seamlessly with mentions throughout your form.</p></div>
-<h3>Overview</h3>
+<h2 id="overview"><a class="anchor" href="#overview" aria-hidden="true" tabindex="-1">#</a>Overview</h2>
 <p>Computed variables are powerful calculated fields that:</p>
 <ul><li><strong>Evaluate live</strong> during form fill (client-side)</li><li><strong>Evaluate on submission</strong> for integrations and notifications (server-side)</li><li><strong>Support Excel-like formulas</strong> with math, text, and logic functions</li><li><strong>Chain together</strong> to create complex calculations</li><li><strong>Work with mentions</strong> anywhere you can use field references</li></ul>
-<h3>Creating Computed Variables</h3>
-<h4>Accessing the Variables Tab</h4>
+<h2 id="creating-computed-variables"><a class="anchor" href="#creating-computed-variables" aria-hidden="true" tabindex="-1">#</a>Creating Computed Variables</h2>
+<h3 id="accessing-the-variables-tab"><a class="anchor" href="#accessing-the-variables-tab" aria-hidden="true" tabindex="-1">#</a>Accessing the Variables Tab</h3>
 <ol><li>Open your form in the editor</li><li>Click on <strong>Settings</strong> (gear icon)</li><li>Navigate to the <strong>Variables</strong> tab</li><li>Click <strong>Add Variable</strong> to create a new computed variable</li></ol>
-<h4>Variable Configuration</h4>
+<h3 id="variable-configuration"><a class="anchor" href="#variable-configuration" aria-hidden="true" tabindex="-1">#</a>Variable Configuration</h3>
 <p>Each computed variable has:</p>
 <div class="table-wrap"><table><thead><tr><th>Field</th><th>Description</th></tr></thead><tbody><tr><td><strong>Name</strong></td><td>A descriptive name for the variable (e.g., "Total Price")</td></tr><tr><td><strong>Formula</strong></td><td>The calculation formula using fields, functions, and operators</td></tr></tbody></table></div>
-<h4>Formula Editor</h4>
+<h3 id="formula-editor"><a class="anchor" href="#formula-editor" aria-hidden="true" tabindex="-1">#</a>Formula Editor</h3>
 <p>The formula editor provides:</p>
 <ul><li><strong>Field picker</strong> - Insert form fields as references</li><li><strong>Function picker</strong> - Browse and insert available functions</li><li><strong>Live validation</strong> - Real-time syntax checking</li><li><strong>Preview</strong> - See sample output as you type</li></ul>
-<h3>Formula Syntax</h3>
-<h4>Field References</h4>
+<h2 id="formula-syntax"><a class="anchor" href="#formula-syntax" aria-hidden="true" tabindex="-1">#</a>Formula Syntax</h2>
+<h3 id="field-references"><a class="anchor" href="#field-references" aria-hidden="true" tabindex="-1">#</a>Field References</h3>
 <p>Reference form fields using curly braces:</p>
 <div class="codeblock"><pre><code>{field_id}</code></pre></div>
 <p>In the editor, you can click the field button to insert fields as interactive pills.</p>
-<h4>Operators</h4>
+<h3 id="operators"><a class="anchor" href="#operators" aria-hidden="true" tabindex="-1">#</a>Operators</h3>
 <div class="table-wrap"><table><thead><tr><th>Operator</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><code>+</code></td><td>Addition / Concatenation</td><td><code>{price} + {tax}</code></td></tr><tr><td><code>-</code></td><td>Subtraction</td><td><code>{total} - {discount}</code></td></tr><tr><td><code>*</code></td><td>Multiplication</td><td><code>{price} * {quantity}</code></td></tr><tr><td><code>/</code></td><td>Division</td><td><code>{total} / {count}</code></td></tr><tr><td><code>=</code></td><td>Equals</td><td><code>{status} = "active"</code></td></tr><tr><td><code>&lt;&gt;</code></td><td>Not equals</td><td><code>{status} &lt;&gt; "inactive"</code></td></tr><tr><td><code>&lt;</code> <code>&gt;</code></td><td>Less/Greater than</td><td><code>{age} &gt; 18</code></td></tr><tr><td><code>&lt;=</code> <code>&gt;=</code></td><td>Less/Greater or equal</td><td><code>{score} &gt;= 90</code></td></tr></tbody></table></div>
-<h4>Text Concatenation</h4>
+<h3 id="text-concatenation"><a class="anchor" href="#text-concatenation" aria-hidden="true" tabindex="-1">#</a>Text Concatenation</h3>
 <p>Use <code>+</code> or <code>CONCAT()</code> to join text:</p>
 <div class="codeblock"><pre><code>"Hello, " + {name} + "!"
 CONCAT({first_name}, " ", {last_name})</code></pre></div>
-<h3>Available Functions</h3>
-<h4>Math Functions</h4>
+<h2 id="available-functions"><a class="anchor" href="#available-functions" aria-hidden="true" tabindex="-1">#</a>Available Functions</h2>
+<h3 id="math-functions"><a class="anchor" href="#math-functions" aria-hidden="true" tabindex="-1">#</a>Math Functions</h3>
 <div class="table-wrap"><table><thead><tr><th>Function</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><code>SUM(...)</code></td><td>Add multiple values</td><td><code>SUM({item1}, {item2}, {item3})</code></td></tr><tr><td><code>AVERAGE(...)</code></td><td>Calculate mean</td><td><code>AVERAGE({score1}, {score2})</code></td></tr><tr><td><code>MIN(...)</code></td><td>Find minimum</td><td><code>MIN({price1}, {price2})</code></td></tr><tr><td><code>MAX(...)</code></td><td>Find maximum</td><td><code>MAX({bid1}, {bid2})</code></td></tr><tr><td><code>ROUND(value, decimals)</code></td><td>Round number</td><td><code>ROUND({total}, 2)</code></td></tr><tr><td><code>FLOOR(value)</code></td><td>Round down</td><td><code>FLOOR({price})</code></td></tr><tr><td><code>CEIL(value)</code></td><td>Round up</td><td><code>CEIL({quantity})</code></td></tr><tr><td><code>ABS(value)</code></td><td>Absolute value</td><td><code>ABS({difference})</code></td></tr><tr><td><code>MOD(value, divisor)</code></td><td>Remainder</td><td><code>MOD({number}, 2)</code></td></tr><tr><td><code>POWER(base, exp)</code></td><td>Exponentiation</td><td><code>POWER({base}, 2)</code></td></tr><tr><td><code>SQRT(value)</code></td><td>Square root</td><td><code>SQRT({area})</code></td></tr></tbody></table></div>
-<h4>Text Functions</h4>
+<h3 id="text-functions"><a class="anchor" href="#text-functions" aria-hidden="true" tabindex="-1">#</a>Text Functions</h3>
 <div class="table-wrap"><table><thead><tr><th>Function</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><code>CONCAT(...)</code></td><td>Join text</td><td><code>CONCAT({first}, " ", {last})</code></td></tr><tr><td><code>UPPER(text)</code></td><td>Uppercase</td><td><code>UPPER({name})</code></td></tr><tr><td><code>LOWER(text)</code></td><td>Lowercase</td><td><code>LOWER({email})</code></td></tr><tr><td><code>TRIM(text)</code></td><td>Remove whitespace</td><td><code>TRIM({input})</code></td></tr><tr><td><code>LEFT(text, n)</code></td><td>First n characters</td><td><code>LEFT({code}, 3)</code></td></tr><tr><td><code>RIGHT(text, n)</code></td><td>Last n characters</td><td><code>RIGHT({phone}, 4)</code></td></tr><tr><td><code>MID(text, start, len)</code></td><td>Substring</td><td><code>MID({ssn}, 4, 2)</code></td></tr><tr><td><code>LEN(text)</code></td><td>Text length</td><td><code>LEN({message})</code></td></tr><tr><td><code>SUBSTITUTE(text, old, new)</code></td><td>Replace text</td><td><code>SUBSTITUTE({url}, "http", "https")</code></td></tr><tr><td><code>REPT(text, n)</code></td><td>Repeat text</td><td><code>REPT("*", {rating})</code></td></tr></tbody></table></div>
-<h4>Logic Functions</h4>
+<h3 id="logic-functions"><a class="anchor" href="#logic-functions" aria-hidden="true" tabindex="-1">#</a>Logic Functions</h3>
 <div class="table-wrap"><table><thead><tr><th>Function</th><th>Description</th><th>Example</th></tr></thead><tbody><tr><td><code>IF(condition, true_val, false_val)</code></td><td>Conditional</td><td><code>IF({score} &gt;= 90, "A", "B")</code></td></tr><tr><td><code>AND(...)</code></td><td>All true</td><td><code>AND({age} &gt;= 18, {consent})</code></td></tr><tr><td><code>OR(...)</code></td><td>Any true</td><td><code>OR({premium}, {trial})</code></td></tr><tr><td><code>NOT(value)</code></td><td>Negate</td><td><code>NOT({disabled})</code></td></tr><tr><td><code>ISBLANK(value)</code></td><td>Check empty</td><td><code>ISBLANK({optional})</code></td></tr><tr><td><code>ISNUMBER(value)</code></td><td>Check number</td><td><code>ISNUMBER({input})</code></td></tr><tr><td><code>ISTEXT(value)</code></td><td>Check text</td><td><code>ISTEXT({response})</code></td></tr><tr><td><code>IFBLANK(value, fallback)</code></td><td>Default if empty</td><td><code>IFBLANK({nickname}, {name})</code></td></tr><tr><td><code>COALESCE(...)</code></td><td>First non-empty</td><td><code>COALESCE({mobile}, {home}, {work})</code></td></tr><tr><td><code>SWITCH(val, case1, res1, ...)</code></td><td>Multiple conditions</td><td><code>SWITCH({grade}, "A", 4, "B", 3, 0)</code></td></tr><tr><td><code>CHOOSE(index, val1, val2, ...)</code></td><td>Pick by index</td><td><code>CHOOSE({option}, "One", "Two", "Three")</code></td></tr></tbody></table></div>
-<h3>Common Use Cases</h3>
-<h4>Calculate Total Price</h4>
+<h2 id="common-use-cases"><a class="anchor" href="#common-use-cases" aria-hidden="true" tabindex="-1">#</a>Common Use Cases</h2>
+<h3 id="calculate-total-price"><a class="anchor" href="#calculate-total-price" aria-hidden="true" tabindex="-1">#</a>Calculate Total Price</h3>
 <div class="codeblock"><pre><code>{price} * {quantity}</code></pre></div>
-<h4>Apply Discount</h4>
+<h3 id="apply-discount"><a class="anchor" href="#apply-discount" aria-hidden="true" tabindex="-1">#</a>Apply Discount</h3>
 <div class="codeblock"><pre><code>{subtotal} * (1 - {discount_percent} / 100)</code></pre></div>
-<h4>Calculate Tax and Total</h4>
+<h3 id="calculate-tax-and-total"><a class="anchor" href="#calculate-tax-and-total" aria-hidden="true" tabindex="-1">#</a>Calculate Tax and Total</h3>
 <div class="codeblock"><pre><code>// Tax variable
 {subtotal} * 0.1
 
 // Total variable (referencing tax)
 {subtotal} + {cv_tax}</code></pre></div>
-<h4>Conditional Pricing</h4>
+<h3 id="conditional-pricing"><a class="anchor" href="#conditional-pricing" aria-hidden="true" tabindex="-1">#</a>Conditional Pricing</h3>
 <div class="codeblock"><pre><code>IF({membership} = "premium", {price} * 0.8, {price})</code></pre></div>
-<h4>Grade Calculator</h4>
+<h3 id="grade-calculator"><a class="anchor" href="#grade-calculator" aria-hidden="true" tabindex="-1">#</a>Grade Calculator</h3>
 <div class="codeblock"><pre><code>IF({score} &gt;= 90, "A", 
   IF({score} &gt;= 80, "B", 
     IF({score} &gt;= 70, "C", 
       IF({score} &gt;= 60, "D", "F"))))</code></pre></div>
-<h4>Full Name</h4>
+<h3 id="full-name"><a class="anchor" href="#full-name" aria-hidden="true" tabindex="-1">#</a>Full Name</h3>
 <div class="codeblock"><pre><code>CONCAT({first_name}, " ", {last_name})</code></pre></div>
-<h4>Email Domain</h4>
+<h3 id="email-domain"><a class="anchor" href="#email-domain" aria-hidden="true" tabindex="-1">#</a>Email Domain</h3>
 <div class="codeblock"><pre><code>RIGHT({email}, LEN({email}) - FIND("@", {email}))</code></pre></div>
-<h3>Using Computed Variables</h3>
-<h4>In Mentions</h4>
+<h2 id="using-computed-variables"><a class="anchor" href="#using-computed-variables" aria-hidden="true" tabindex="-1">#</a>Using Computed Variables</h2>
+<h3 id="in-mentions"><a class="anchor" href="#in-mentions" aria-hidden="true" tabindex="-1">#</a>In Mentions</h3>
 <p>Computed variables appear in the mention dropdown alongside form fields. Look for the 📊 icon:</p>
 <ul><li>In <strong>Thank You Page</strong> content</li><li>In <strong>Email notifications</strong> (subject, body, reply-to)</li><li>In <strong>Redirect URLs</strong></li><li>In <strong>Integration payloads</strong></li></ul>
-<h4>In Conditional Logic</h4>
+<h3 id="in-conditional-logic"><a class="anchor" href="#in-conditional-logic" aria-hidden="true" tabindex="-1">#</a>In Conditional Logic</h3>
 <p>Use computed variables in conditional logic rules:</p>
 <ol><li>Open the Logic tab for a field</li><li>Add a condition</li><li>Select your computed variable from the dropdown</li><li>Set the comparison operator and value</li></ol>
 <p>Example: Show a field only when total is over $100:</p>
 <ul><li><strong>Field:</strong> <code>cv_total</code></li><li><strong>Condition:</strong> <code>greater_than</code></li><li><strong>Value:</strong> <code>100</code></li></ul>
-<h3>Variable Dependencies</h3>
+<h2 id="variable-dependencies"><a class="anchor" href="#variable-dependencies" aria-hidden="true" tabindex="-1">#</a>Variable Dependencies</h2>
 <p>Computed variables can reference other computed variables:</p>
 <div class="codeblock"><pre><code>// cv_subtotal
 {price} * {quantity}
@@ -91,24 +101,32 @@ CONCAT({first_name}, " ", {last_name})</code></pre></div>
 // cv_total (references both)
 {cv_subtotal} + {cv_tax}</code></pre></div>
 <div class="admo admo-warning"><p class="admo-label">Warning</p><p><strong>Circular Dependencies:</strong> The system automatically detects and prevents circular references. Variable A cannot reference Variable B if B already references A (directly or indirectly).</p></div>
-<h3>Technical Details</h3>
-<h4>Evaluation Timing</h4>
+<h2 id="technical-details"><a class="anchor" href="#technical-details" aria-hidden="true" tabindex="-1">#</a>Technical Details</h2>
+<h3 id="evaluation-timing"><a class="anchor" href="#evaluation-timing" aria-hidden="true" tabindex="-1">#</a>Evaluation Timing</h3>
 <div class="table-wrap"><table><thead><tr><th>Context</th><th>When Evaluated</th></tr></thead><tbody><tr><td>Form fill</td><td>Live, as field values change</td></tr><tr><td>Conditional logic</td><td>Before rendering each field</td></tr><tr><td>Thank you page</td><td>After submission</td></tr><tr><td>Email notifications</td><td>When email is sent</td></tr><tr><td>Integrations</td><td>When integration runs</td></tr></tbody></table></div>
-<h4>Data Storage</h4>
+<h3 id="data-storage"><a class="anchor" href="#data-storage" aria-hidden="true" tabindex="-1">#</a>Data Storage</h3>
 <p>Computed variable values are <strong>not stored</strong> in submission records. They are calculated on-demand when needed. This ensures:</p>
 <ul><li>Always up-to-date calculations</li><li>Smaller database storage</li><li>Formula changes affect past submissions when viewed</li></ul>
-<h4>Error Handling</h4>
+<h3 id="error-handling"><a class="anchor" href="#error-handling" aria-hidden="true" tabindex="-1">#</a>Error Handling</h3>
 <p>If a formula cannot be evaluated (e.g., division by zero, missing field), it returns <code>null</code>. Use <code>IFBLANK()</code> or <code>COALESCE()</code> to provide fallback values:</p>
 <div class="codeblock"><pre><code>IFBLANK({cv_calculation}, "N/A")</code></pre></div>
-<h3>Best Practices</h3>
+<h2 id="best-practices"><a class="anchor" href="#best-practices" aria-hidden="true" tabindex="-1">#</a>Best Practices</h2>
 <div class="admo admo-tip"><p class="admo-label">Tip</p><p><strong>Naming:</strong> Use descriptive names like "Total Price" or "Shipping Cost" rather than generic names like "Calculation 1".</p></div>
 <div class="admo admo-tip"><p class="admo-label">Tip</p><p><strong>Validation:</strong> Test your formulas with sample data using the preview feature before saving.</p></div>
 <div class="admo admo-tip"><p class="admo-label">Tip</p><p><strong>Modularity:</strong> Break complex calculations into smaller variables that reference each other. This makes formulas easier to understand and debug.</p></div>
 <div class="admo admo-warning"><p class="admo-label">Warning</p><p><strong>Performance:</strong> While computed variables are efficient, avoid extremely complex chains of 10+ interdependent variables for best performance.</p></div>
     </article>
-    
-    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
-  <div class="pager"><a class="page-nav prev" href="/workspace-users/leave-workspace.html"><span>Previous</span>Leave Workspace</a><a class="page-nav next" href="/embedding/javascript-sdk.html"><span>Next</span>JavaScript SDK (Embedding)</a></div></main>
+    <div class="pager"><a class="page-nav prev" href="/workspace-users/leave-workspace.html"><span class="page-nav-label">← Previous</span>Leave Workspace</a><a class="page-nav next" href="/embedding/javascript-sdk.html"><span class="page-nav-label">Next →</span>JavaScript SDK (Embedding)</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#overview">#Overview</a></li><li class="toc-l2"><a href="#creating-computed-variables">#Creating Computed Variables</a></li><li class="toc-l3"><a href="#accessing-the-variables-tab">#Accessing the Variables Tab</a></li><li class="toc-l3"><a href="#variable-configuration">#Variable Configuration</a></li><li class="toc-l3"><a href="#formula-editor">#Formula Editor</a></li><li class="toc-l2"><a href="#formula-syntax">#Formula Syntax</a></li><li class="toc-l3"><a href="#field-references">#Field References</a></li><li class="toc-l3"><a href="#operators">#Operators</a></li><li class="toc-l3"><a href="#text-concatenation">#Text Concatenation</a></li><li class="toc-l2"><a href="#available-functions">#Available Functions</a></li><li class="toc-l3"><a href="#math-functions">#Math Functions</a></li><li class="toc-l3"><a href="#text-functions">#Text Functions</a></li><li class="toc-l3"><a href="#logic-functions">#Logic Functions</a></li><li class="toc-l2"><a href="#common-use-cases">#Common Use Cases</a></li><li class="toc-l3"><a href="#calculate-total-price">#Calculate Total Price</a></li><li class="toc-l3"><a href="#apply-discount">#Apply Discount</a></li><li class="toc-l3"><a href="#calculate-tax-and-total">#Calculate Tax and Total</a></li><li class="toc-l3"><a href="#conditional-pricing">#Conditional Pricing</a></li><li class="toc-l3"><a href="#grade-calculator">#Grade Calculator</a></li><li class="toc-l3"><a href="#full-name">#Full Name</a></li><li class="toc-l3"><a href="#email-domain">#Email Domain</a></li><li class="toc-l2"><a href="#using-computed-variables">#Using Computed Variables</a></li><li class="toc-l3"><a href="#in-mentions">#In Mentions</a></li><li class="toc-l3"><a href="#in-conditional-logic">#In Conditional Logic</a></li><li class="toc-l2"><a href="#variable-dependencies">#Variable Dependencies</a></li><li class="toc-l2"><a href="#technical-details">#Technical Details</a></li><li class="toc-l3"><a href="#evaluation-timing">#Evaluation Timing</a></li><li class="toc-l3"><a href="#data-storage">#Data Storage</a></li><li class="toc-l3"><a href="#error-handling">#Error Handling</a></li><li class="toc-l2"><a href="#best-practices">#Best Practices</a></li></ul></aside>
 </div>
 </body>
 </html>

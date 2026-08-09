@@ -3,35 +3,45 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Validating Webhook Signatures · SharaForms API Docs</title>
+<title>Validating Webhook Signatures · SharaForms Docs</title>
 <meta name="description" content="Learn how to validate webhook signatures from SharaForms to ensure authenticity and integrity">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="Validating Webhook Signatures">
+<meta property="og:description" content="Learn how to validate webhook signatures from SharaForms to ensure authenticity and integrity">
+<meta property="og:url" content="https://docs.sharaforms.com/integrations/webhook-security.html">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
-  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site"><a href="/" class="active">API Reference</a><a href="/computed-variables.html">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
 </header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
 <div class="layout">
-  <nav class="sidebar"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html" class="active">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li></ul></div></nav>
-  <main class="content">
+  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html" class="active">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
+  <main class="content" id="content">
+    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-static">Integrations &amp; Webhooks</span><span class="crumb-sep">/</span><span class="crumb-current">Validating Webhook Signatures</span></nav>
     <article>
       <h1 class="page-title">Validating Webhook Signatures</h1>
-      <h2>Validating Webhook Signatures</h2>
+      <h1>Validating Webhook Signatures</h1>
 <p>When you configure a webhook with a signing secret, SharaForms signs each webhook request with an HMAC-SHA256 signature. This allows you to verify that:</p>
 <ol><li>The webhook came from SharaForms (authenticity)</li><li>The payload hasn't been modified in transit (integrity)</li></ol>
-<h3>Understanding the Signature</h3>
+<h2 id="understanding-the-signature"><a class="anchor" href="#understanding-the-signature" aria-hidden="true" tabindex="-1">#</a>Understanding the Signature</h2>
 <p>Each webhook request includes an <code>X-Webhook-Signature</code> header with the format:</p>
 <div class="codeblock"><pre><code>X-Webhook-Signature: sha256=HEXADECIMAL_VALUE</code></pre></div>
 <p>The signature is calculated as:</p>
 <div class="codeblock"><pre><code>signature = HMAC-SHA256(webhook_secret, request_body)</code></pre></div>
 <p>Where:</p>
 <ul><li><code>webhook_secret</code> is the secret you provided when creating the webhook</li><li><code>request_body</code> is the raw JSON payload</li></ul>
-<h3>Validation Steps</h3>
+<h2 id="validation-steps"><a class="anchor" href="#validation-steps" aria-hidden="true" tabindex="-1">#</a>Validation Steps</h2>
 <ol><li>Extract the signature from the <code>X-Webhook-Signature</code> header</li><li>Remove the <code>sha256=</code> prefix</li><li>Calculate the expected signature using your webhook secret and the raw request body</li><li>Compare the received signature with the calculated signature</li><li>Reject the webhook if signatures don't match</li></ol>
 <div class="admo admo-warning"><p class="admo-label">Warning</p><p>Always use the <strong>raw request body</strong> (as bytes/string before parsing) when calculating the signature. Parsing JSON and re-serializing can produce different output and cause signature mismatches.</p></div>
-<h3>Implementation Examples</h3>
+<h2 id="implementation-examples"><a class="anchor" href="#implementation-examples" aria-hidden="true" tabindex="-1">#</a>Implementation Examples</h2>
 <div class="codeblock"><span class="code-lang">javascript</span><pre><code>const express = require('express');
 const crypto = require('crypto');
 
@@ -150,7 +160,7 @@ curl -X POST http://localhost:3000/webhook \
   -H "Content-Type: application/json" \
   -H "X-Webhook-Signature: $SIGNATURE" \
   -d "$BODY"</code></pre></div>
-<h3>Custom Headers</h3>
+<h2 id="custom-headers"><a class="anchor" href="#custom-headers" aria-hidden="true" tabindex="-1">#</a>Custom Headers</h2>
 <p>In addition to the signature header, SharaForms will send any custom headers you configured when creating the webhook. These can include authentication tokens, API keys, or other identifiers.</p>
 <p>Example webhook request with custom headers:</p>
 <div class="codeblock"><span class="code-lang">bash</span><pre><code>POST /webhook HTTP/1.1
@@ -166,22 +176,30 @@ X-Custom-Header: custom-value
   "submission_id": 456,
   "submission": { ... }
 }</code></pre></div>
-<h3>Security Best Practices</h3>
+<h2 id="security-best-practices"><a class="anchor" href="#security-best-practices" aria-hidden="true" tabindex="-1">#</a>Security Best Practices</h2>
 <div class="admo admo-tip"><p class="admo-label">Tip</p><ol><li><strong>Use HTTPS only</strong>: Always use HTTPS endpoints for webhooks to prevent man-in-the-middle attacks</li><li><strong>Strong secrets</strong>: Use cryptographically random secrets at least 12 characters long</li><li><strong>Constant-time comparison</strong>: Use timing-safe comparison functions to prevent timing attacks</li><li><strong>Validate signatures first</strong>: Verify the signature before parsing or processing the webhook data</li><li><strong>Store secrets securely</strong>: Never commit secrets to version control; use environment variables or secret managers</li><li><strong>Rotate regularly</strong>: Consider rotating your webhook secret periodically</li><li><strong>Log verification failures</strong>: Track failed signature validations to detect potential attacks</li></ol></div>
-<h3>Troubleshooting</h3>
-<h4>Signature Mismatch</h4>
+<h2 id="troubleshooting"><a class="anchor" href="#troubleshooting" aria-hidden="true" tabindex="-1">#</a>Troubleshooting</h2>
+<h3 id="signature-mismatch"><a class="anchor" href="#signature-mismatch" aria-hidden="true" tabindex="-1">#</a>Signature Mismatch</h3>
 <p>If you're consistently getting signature mismatches:</p>
 <ol><li><strong>Verify the raw body</strong>: Ensure you're using the raw request body (before JSON parsing) to calculate the signature</li><li><strong>Check the secret</strong>: Confirm you're using the exact secret from the webhook configuration</li><li><strong>Character encoding</strong>: Ensure both the secret and body are handled with correct UTF-8 encoding</li><li><strong>Middleware order</strong>: If using middleware, ensure raw body capture happens before JSON parsing</li><li><strong>Test with cURL</strong>: Use the cURL example above to manually test signature generation</li></ol>
-<h4>Missing Signature Header</h4>
+<h3 id="missing-signature-header"><a class="anchor" href="#missing-signature-header" aria-hidden="true" tabindex="-1">#</a>Missing Signature Header</h3>
 <p>If the <code>X-Webhook-Signature</code> header is missing:</p>
 <ol><li>Verify you provided a <code>webhook_secret</code> when creating the webhook</li><li>Check your webhook status is <code>active</code></li><li>Review the integration event logs for any errors during webhook delivery</li></ol>
-<h3>Testing Your Webhook</h3>
+<h2 id="testing-your-webhook"><a class="anchor" href="#testing-your-webhook" aria-hidden="true" tabindex="-1">#</a>Testing Your Webhook</h2>
 <p>Use a webhook testing service like <a href="https://webhook.site">webhook.site</a> or <a href="https://requestbin.com">RequestBin</a> to inspect webhook requests during development. These services display headers, body, and other request details.</p>
 <p>You can also implement local webhook testing by running a simple server on your machine and using a tool like <a href="https://ngrok.com">ngrok</a> to expose it to the internet.</p>
     </article>
-    
-    <footer class="footer">SharaForms API Docs — base URL <code>https://api.sharaforms.com</code></footer>
-  <div class="pager"><a class="page-nav prev" href="/integrations/list-webhook-events.html"><span>Previous</span>List Webhook Events</a><a class="page-nav next" href="/workspaces/list-workspaces.html"><span>Next</span>List Workspaces</a></div></main>
+    <div class="pager"><a class="page-nav prev" href="/integrations/list-webhook-events.html"><span class="page-nav-label">← Previous</span>List Webhook Events</a><a class="page-nav next" href="/workspaces/list-workspaces.html"><span class="page-nav-label">Next →</span>List Workspaces</a></div>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
+    </footer>
+  </main>
+  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#understanding-the-signature">#Understanding the Signature</a></li><li class="toc-l2"><a href="#validation-steps">#Validation Steps</a></li><li class="toc-l2"><a href="#implementation-examples">#Implementation Examples</a></li><li class="toc-l2"><a href="#custom-headers">#Custom Headers</a></li><li class="toc-l2"><a href="#security-best-practices">#Security Best Practices</a></li><li class="toc-l2"><a href="#troubleshooting">#Troubleshooting</a></li><li class="toc-l3"><a href="#signature-mismatch">#Signature Mismatch</a></li><li class="toc-l3"><a href="#missing-signature-header">#Missing Signature Header</a></li><li class="toc-l2"><a href="#testing-your-webhook">#Testing Your Webhook</a></li></ul></aside>
 </div>
 </body>
 </html>

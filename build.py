@@ -15,7 +15,8 @@ _SOURCE = ROOT / "source" / "api-reference"
 MDX_DIR = _SOURCE if _SOURCE.is_dir() else ROOT.parent / "docs" / "api-reference"
 OUT = ROOT / "docs" if _SOURCE.is_dir() else ROOT / "site"
 
-SITE_NAME = "SharaForms API Docs"
+SITE_NAME = "SharaForms Docs"
+SITE_URL = "https://docs.sharaforms.com"
 BASE_URL = "https://api.sharaforms.com"
 
 NAV = [
@@ -24,6 +25,7 @@ NAV = [
         [
             ("Introduction", "index.html"),
             ("API Keys", "api-keys.html"),
+            ("Changelog", "changelog.html"),
         ],
     ),
     (
@@ -97,6 +99,7 @@ NAV = [
         [
             ("Computed Variables", "computed-variables.html"),
             ("JavaScript SDK (Embedding)", "embedding/javascript-sdk.html"),
+            ("Embed Editor", "embedding/editor-embed.html"),
         ],
     ),
 ]
@@ -113,6 +116,12 @@ EXTRA_SOURCES = [
         (ROOT / "source" / "embedding" / "javascript-sdk.mdx")
         if _SOURCE.is_dir()
         else ROOT.parent / "docs" / "embedding" / "javascript-sdk.mdx",
+    ),
+    (
+        "embedding/editor-embed",
+        (ROOT / "source" / "embedding" / "editor-embed.mdx")
+        if _SOURCE.is_dir()
+        else ROOT.parent / "docs" / "embedding" / "editor-embed.mdx",
     ),
 ]
 
@@ -238,27 +247,10 @@ class Converter:
                 body_html = self.markdown(content)
                 if not re.search(r"<(p|ul|ol|div|pre)\b", body_html):
                     body_html = f"<p>{body_html}</p>"
-                items.append(f"<li><strong>{esc(title)}.</strong> {body_html}</li>")
+                items.append(f"<li><strong>{esc(title)}</strong>{body_html}</li>")
             return self.reserve("steps", f'<ol class="steps">{"".join(items)}</ol>')
 
         body = re.sub(r"<Steps>([\s\S]*?)</Steps>", steps, body)
-
-        # <Frame><img .../></Frame>
-        def frame(m):
-            img = re.search(
-                r"<img\s+src=\"([^\"]+)\"\s*(?:alt=\"([^\"]*)\")?\s*/?>", m.group(1)
-            )
-            if not img:
-                return self.reserve("frame", "")
-            src = img.group(1)
-            if src.startswith("/api-reference/"):
-                src = src[len("/api-reference/") :]
-            return self.reserve(
-                "frame",
-                f'<figure class="frame"><img src="{src}" alt="{esc(img.group(2) or "")}" loading="lazy"></figure>',
-            )
-
-        body = re.sub(r"<Frame>([\s\S]*?)</Frame>", frame, body)
 
         # <RequestExample>/<ResponseExample> containing one fenced code block
         def example(m):
@@ -353,9 +345,6 @@ class Converter:
         body = re.sub(PARAM_RE, paramfield, body)
         body = re.sub(RESPFIELD_RE, respfield, body)
 
-        # <Steps>…</Steps> -> <ol class="steps"> (handled above; remove leftovers)
-
-        # leftover raw tags safety
         return body
 
     # ---------- markdown ----------
@@ -378,10 +367,12 @@ class Converter:
                 i += 1
                 continue
 
-            # headings
+            # headings (# -> h1 .. #### -> h4; the page title is rendered
+            # separately as the page h1, and strip_title_h1() removes any
+            # duplicate "# Title" line)
             m = re.match(r"^(#{1,4})\s+(.*)$", line)
             if m:
-                level = min(len(m.group(1)) + 1, 6)  # h1 -> h1, h2 -> h2 ...
+                level = min(len(m.group(1)), 4)
                 out.append(f"<h{level}>{inline(m.group(2))}</h{level}>")
                 i += 1
                 continue
@@ -424,13 +415,6 @@ class Converter:
                         break
                     items.append(m2.group(2))
                     i += 1
-                ordered = re.match(
-                    r"^\s*\d+\.\s+", lines[i - 1] if i <= n else ""
-                ) is not None or any(re.match(r"^\d+\.\s", it) for it in items if False)
-                ordered = False
-                # detect order from first item
-                if re.match(r"^\s*\d+\.\s+", lines[i - len(items)]) and False:
-                    ordered = True
                 tag = "ol" if re.match(r"^\s*\d+\.\s+", lines[i - len(items)]) else "ul"
                 out.append(
                     f"<{tag}>"
@@ -492,35 +476,115 @@ def strip_title_h1(title: str, body: str) -> str:
     return body
 
 
+# ---------- heading ids + on-this-page TOC ----------
+
+
+def add_heading_ids(content: str) -> str:
+    """Add slug ids + "#" anchor links to h2/h3/h4 headings."""
+    used: dict[str, int] = {}
+
+    def repl(m):
+        level = m.group(1)
+        text = re.sub(r"<[^>]+>", "", m.group(2)).strip().lower()
+        slug = re.sub(r"[^a-z0-9]+", "-", text).strip("-") or "section"
+        n = used.get(slug, 0)
+        used[slug] = n + 1
+        if n:
+            slug = f"{slug}-{n + 1}"
+        return (
+            f'<h{level} id="{slug}">'
+            f'<a class="anchor" href="#{slug}" aria-hidden="true" tabindex="-1">#</a>'
+            f"{m.group(2)}</h{level}>"
+        )
+
+    return re.sub(r"<h([234])>(.*?)</h\1>", repl, content)
+
+
+def extract_toc(content: str) -> list[tuple[int, str, str]]:
+    """Collect (level, id, text) for h2/h3 headings."""
+    items = []
+    for m in re.finditer(r'<h([23]) id="([^"]+)">(.*?)</h\1>', content):
+        text = re.sub(r"<[^>]+>", "", m.group(3)).strip()
+        items.append((int(m.group(1)), m.group(2), text))
+    return items
+
+
+def nav_lookup() -> dict[str, tuple[str, str]]:
+    """href -> (group, label)"""
+    return {href: (group, label) for group, items in NAV for label, href in items}
+
+
 def render_page(
     title: str,
     description: str,
     content: str,
     current: str,
-    prev: str | None = None,
-    next_: str | None = None,
+    prev: tuple[str, str] | None = None,
+    next_: tuple[str, str] | None = None,
 ) -> str:
+    lookup = nav_lookup()
+    group, label = lookup.get(current, ("", title))
+
+    # ---------- sidebar ----------
     nav_html = []
-    for group, items in NAV:
+    for grp, items in NAV:
         lis = []
-        for label, href in items:
+        for lbl, href in items:
             cls = ' class="active"' if href == current else ""
-            lis.append(f'<li><a href="/{href}"{cls}>{esc(label)}</a></li>')
+            lis.append(f'<li><a href="/{href}"{cls}>{esc(lbl)}</a></li>')
         nav_html.append(
-            f'<div class="nav-group"><div class="nav-group-title">{esc(group)}</div><ul>{"".join(lis)}</ul></div>'
+            f'<div class="nav-group"><div class="nav-group-title">{esc(grp)}</div><ul>{"".join(lis)}</ul></div>'
         )
+
+    # ---------- topbar links ----------
+    guides = current.startswith(("computed-variables", "embedding"))
+    topnav = [
+        ('<a href="/" class="active">API Reference</a>')
+        if not guides
+        else '<a href="/">API Reference</a>',
+        ('<a href="/computed-variables.html" class="active">Guides</a>')
+        if guides
+        else '<a href="/computed-variables.html">Guides</a>',
+        '<a href="https://sharaforms.com" class="topnav-ext">Website ↗</a>',
+    ]
+
+    # ---------- breadcrumbs ----------
+    crumbs = '<a href="/">Home</a>'
+    if current != "index.html":
+        if group and group != "Overview":
+            crumbs += f'<span class="crumb-sep">/</span><span class="crumb-static">{esc(group)}</span>'
+        crumbs += f'<span class="crumb-sep">/</span><span class="crumb-current">{esc(label or title)}</span>'
+    breadcrumbs = f'<nav class="breadcrumbs" aria-label="Breadcrumb">{crumbs}</nav>'
+
+    # ---------- on-this-page TOC ----------
+    toc_items = extract_toc(content)
+    toc_html = ""
+    if len(toc_items) >= 2:
+        lis = []
+        for level, hid, text in toc_items:
+            lis.append(
+                f'<li class="toc-l{level}"><a href="#{hid}">{esc(text)}</a></li>'
+            )
+        toc_html = (
+            f'<aside class="toc" aria-label="On this page">'
+            f'<div class="toc-title">On this page</div>'
+            f"<ul>{''.join(lis)}</ul></aside>"
+        )
+
+    # ---------- pager ----------
     pager = ""
     if prev or next_:
         parts = []
         if prev:
             parts.append(
-                f'<a class="page-nav prev" href="/{prev[1]}"><span>Previous</span>{esc(prev[0])}</a>'
+                f'<a class="page-nav prev" href="/{prev[1]}"><span class="page-nav-label">← Previous</span>{esc(prev[0])}</a>'
             )
         if next_:
             parts.append(
-                f'<a class="page-nav next" href="/{next_[1]}"><span>Next</span>{esc(next_[0])}</a>'
+                f'<a class="page-nav next" href="/{next_[1]}"><span class="page-nav-label">Next →</span>{esc(next_[0])}</a>'
             )
         pager = f'<div class="pager">{"".join(parts)}</div>'
+
     return f"""<!DOCTYPE html>
 <html lang="en">
 <head>
@@ -528,103 +592,325 @@ def render_page(
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>{esc(title)} · {SITE_NAME}</title>
 <meta name="description" content="{esc(description)}">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="{SITE_NAME}">
+<meta property="og:title" content="{esc(title)}">
+<meta property="og:description" content="{esc(description)}">
+<meta property="og:url" content="{SITE_URL}/{current}">
 <link rel="stylesheet" href="/styles.css">
 <link rel="icon" href="data:,">
 </head>
 <body>
+<a class="skip" href="#content">Skip to content</a>
+<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <a class="brand" href="/"><span class="brand-mark">S</span> SharaForms <span class="brand-sub">API Docs</span></a>
-  <a class="topbar-link" href="https://sharaforms.com">sharaforms.com ↗</a>
+  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
+  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
+  <nav class="topnav" aria-label="Site">{"".join(topnav)}</nav>
 </header>
+<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
 <div class="layout">
-  <nav class="sidebar">{"".join(nav_html)}</nav>
-  <main class="content">
+  <nav class="sidebar" aria-label="Documentation">{"".join(nav_html)}</nav>
+  <main class="content" id="content">
+    {breadcrumbs}
     <article>
       <h1 class="page-title">{esc(title)}</h1>
       {content}
     </article>
     {pager}
-    <footer class="footer">SharaForms API Docs — base URL <code>{BASE_URL}</code></footer>
+    <footer class="footer">
+      <span class="footer-copy">© 2026 SharaForms</span>
+      <span class="footer-links">
+        <a href="https://sharaforms.com">sharaforms.com</a>
+        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
+      </span>
+      <span class="footer-base">Base URL <code>{BASE_URL}</code></span>
+    </footer>
   </main>
+  {toc_html}
 </div>
 </body>
 </html>
 """
 
 
-CSS = """:root{--accent:#3b82f6;--text:#1a1a1a;--muted:#6b7280;--border:#e5e7eb;--bg:#ffffff;--code-bg:#f6f8fa;--sidebar-bg:#fafafa}
+CSS = """:root{
+  --accent:#4f46e5;            /* indigo-600 */
+  --accent-weak:#eef2ff;
+  --accent-strong:#4338ca;
+  --text:#0f172a;              /* slate-900 */
+  --muted:#64748b;             /* slate-500 */
+  --border:#e2e8f0;            /* slate-200 */
+  --bg:#ffffff;
+  --bg-subtle:#f8fafc;         /* slate-50 */
+  --bg-hover:#f1f5f9;          /* slate-100 */
+  --code-bg:#0f172a;           /* slate-900 */
+  --code-bar:#1e293b;          /* slate-800 */
+  --code-text:#e2e8f0;
+  --code-inline-bg:#f1f5f9;
+  --radius:10px;
+  --shadow-sm:0 1px 2px rgb(15 23 42 / .05);
+  --shadow-md:0 8px 24px rgb(15 23 42 / .08);
+  --topbar-h:56px;
+}
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
-body{font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;color:var(--text);line-height:1.65;background:var(--bg);font-size:16px}
+body{
+  font-family:-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,"Helvetica Neue",Arial,sans-serif;
+  color:var(--text);line-height:1.7;background:var(--bg);font-size:16px;
+  -webkit-font-smoothing:antialiased;text-rendering:optimizeLegibility;
+}
+::selection{background:var(--accent);color:#fff}
 a{color:var(--accent);text-decoration:none}
 a:hover{text-decoration:underline}
-.topbar{position:sticky;top:0;z-index:10;display:flex;align-items:center;justify-content:space-between;height:56px;padding:0 24px;background:var(--bg);border-bottom:1px solid var(--border)}
-.brand{font-weight:700;font-size:15px;color:var(--text);display:flex;align-items:center;gap:8px}
-.brand-mark{display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:6px;background:var(--accent);color:#fff;font-size:14px;font-weight:700}
-.brand-sub{color:var(--muted);font-weight:400}
-.topbar-link{font-size:14px}
-.layout{display:flex;max-width:1280px;margin:0 auto}
-.sidebar{width:260px;flex-shrink:0;padding:24px 16px 48px;border-right:1px solid var(--border);background:var(--sidebar-bg);position:sticky;top:56px;height:calc(100vh - 56px);overflow-y:auto}
-.nav-group{margin-bottom:20px}
-.nav-group-title{font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:0 8px;margin-bottom:6px}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px;border-radius:4px}
+code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+
+/* ---------- topbar ---------- */
+.topbar{
+  position:sticky;top:0;z-index:50;display:flex;align-items:center;gap:20px;
+  height:var(--topbar-h);padding:0 24px;
+  background:rgb(255 255 255 / .85);backdrop-filter:blur(10px);-webkit-backdrop-filter:blur(10px);
+  border-bottom:1px solid var(--border);
+}
+.brand{display:flex;align-items:center;gap:9px;color:var(--text);font-weight:800;font-size:15px;letter-spacing:-.01em}
+.brand:hover{text-decoration:none}
+.brand-mark{
+  display:inline-flex;align-items:center;justify-content:center;width:26px;height:26px;border-radius:7px;
+  background:linear-gradient(135deg,var(--accent),#7c3aed);color:#fff;font-size:15px;font-weight:800;
+  box-shadow:var(--shadow-sm);
+}
+.brand-name{white-space:nowrap}
+.brand-sub{color:var(--muted);font-weight:500}
+.topnav{display:flex;align-items:center;gap:4px;margin-left:auto}
+.topnav a{padding:6px 12px;border-radius:8px;font-size:14px;font-weight:500;color:var(--muted)}
+.topnav a:hover{background:var(--bg-hover);color:var(--text);text-decoration:none}
+.topnav a.active{color:var(--accent);background:var(--accent-weak);font-weight:600}
+.nav-burger{display:none;cursor:pointer;width:38px;height:38px;border-radius:8px;align-items:center;justify-content:center}
+.nav-burger:hover{background:var(--bg-hover)}
+.nav-burger span,.nav-burger span::before,.nav-burger span::after{
+  display:block;width:18px;height:2px;border-radius:2px;background:var(--text);position:relative;
+}
+.nav-burger span::before{content:"";position:absolute;top:-6px}
+.nav-burger span::after{content:"";position:absolute;top:6px}
+.nav-toggle{position:absolute;opacity:0;pointer-events:none}
+.scrim{display:none}
+
+/* ---------- layout ---------- */
+.layout{
+  display:grid;grid-template-columns:264px minmax(0,1fr) 232px;
+  max-width:1440px;margin:0 auto;
+}
+.sidebar{
+  position:sticky;top:var(--topbar-h);height:calc(100vh - var(--topbar-h));overflow-y:auto;
+  border-right:1px solid var(--border);padding:28px 14px 48px;
+}
+.content{min-width:0;padding:40px 56px 96px;max-width:880px}
+.toc{position:sticky;top:var(--topbar-h);height:calc(100vh - var(--topbar-h));overflow-y:auto;padding:48px 20px 48px 12px;align-self:start}
+.toc-title{font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);margin-bottom:12px}
+.toc ul{list-style:none;display:flex;flex-direction:column;gap:2px}
+.toc a{display:block;padding:4px 8px;border-radius:6px;font-size:13px;color:var(--muted);border-left:2px solid transparent}
+.toc a:hover{background:var(--bg-hover);color:var(--text);text-decoration:none}
+.toc-l2 a{font-weight:500;color:#334155}
+.toc-l3 a{padding-left:20px;font-size:12.5px}
+
+/* ---------- sidebar nav ---------- */
+.nav-group{margin-bottom:22px}
+.nav-group-title{
+  font-size:11px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;
+  color:var(--muted);padding:0 10px;margin-bottom:6px;
+}
 .nav-group ul{list-style:none}
 .nav-group li{margin:1px 0}
-.nav-group a{display:block;padding:5px 8px;border-radius:6px;font-size:14px;color:#374151}
-.nav-group a:hover{background:#f0f0f0;text-decoration:none}
-.nav-group a.active{background:#e8f0fe;color:var(--accent);font-weight:600}
-.content{flex:1;min-width:0;padding:40px 56px 80px;max-width:900px}
-.page-title{font-size:32px;font-weight:800;letter-spacing:-.02em;margin-bottom:8px}
-article h1{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:0 0 16px}
-article h2{font-size:22px;font-weight:700;margin:36px 0 12px;padding-top:8px}
-article h3{font-size:17px;font-weight:700;margin:24px 0 8px}
-article h4{font-size:15px;font-weight:700;margin:20px 0 6px}
-article p{margin:10px 0}
-article ul,article ol{margin:10px 0 10px 24px}
-article li{margin:4px 0}
-article code{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:.875em;background:var(--code-bg);border:1px solid var(--border);border-radius:4px;padding:1px 5px}
-article pre{margin:12px 0}
-article pre code{display:block;background:transparent;border:none;padding:0;font-size:13.5px;line-height:1.6;overflow-x:auto;white-space:pre}
-.codeblock{background:var(--code-bg);border:1px solid var(--border);border-radius:8px;margin:14px 0;overflow:hidden}
-.codeblock pre{padding:14px 16px;margin:0;overflow-x:auto}
-.code-lang{display:inline-block;font-size:11px;font-weight:700;letter-spacing:.04em;text-transform:uppercase;color:var(--muted);background:var(--code-bg);border-bottom:1px solid var(--border);border-right:1px solid var(--border);padding:4px 10px;border-radius:8px 0 0 0}
-.codeblock .code-lang:first-child{border-top:none}
-.table-wrap{overflow-x:auto;margin:14px 0;border:1px solid var(--border);border-radius:8px}
+.nav-group a{
+  display:block;padding:5px 10px;border-radius:7px;font-size:13.5px;color:#334155;
+  line-height:1.45;
+}
+.nav-group a:hover{background:var(--bg-hover);color:var(--text);text-decoration:none}
+.nav-group a.active{background:var(--accent-weak);color:var(--accent);font-weight:600}
+
+/* ---------- breadcrumbs ---------- */
+.breadcrumbs{display:flex;flex-wrap:wrap;align-items:center;gap:7px;font-size:13px;color:var(--muted);margin-bottom:18px}
+.breadcrumbs a{color:var(--muted)}
+.breadcrumbs a:hover{color:var(--accent);text-decoration:none}
+.crumb-sep{color:#cbd5e1}
+.crumb-static{color:var(--muted)}
+.crumb-current{color:var(--text);font-weight:600}
+
+/* ---------- typography ---------- */
+.page-title{font-size:clamp(1.75rem,3.2vw,2.25rem);font-weight:800;letter-spacing:-.025em;line-height:1.2;margin:0 0 8px}
+article > p:first-of-type{font-size:17px;color:#475569;margin-bottom:20px}
+article h2{
+  font-size:1.4rem;font-weight:700;letter-spacing:-.015em;margin:44px 0 14px;padding-top:10px;
+  scroll-margin-top:calc(var(--topbar-h) + 20px);
+}
+article h3{
+  font-size:1.12rem;font-weight:700;margin:30px 0 10px;
+  scroll-margin-top:calc(var(--topbar-h) + 20px);
+}
+article h4{font-size:1rem;font-weight:700;margin:24px 0 8px;scroll-margin-top:calc(var(--topbar-h) + 20px)}
+article p{margin:12px 0}
+article ul,article ol{margin:12px 0 12px 26px}
+article li{margin:5px 0}
+article li > ul,article li > ol{margin:4px 0 4px 24px}
+article li::marker{color:var(--accent)}
+article a{font-weight:500}
+.anchor{display:inline-block;width:0;margin-left:2px;color:#cbd5e1;font-weight:600;opacity:0;transition:opacity .15s}
+article h2:hover .anchor,article h3:hover .anchor,article h4:hover .anchor{opacity:1}
+.anchor:hover{color:var(--accent);text-decoration:none}
+hr{border:none;border-top:1px solid var(--border);margin:32px 0}
+
+/* ---------- code ---------- */
+article code{
+  font-size:.87em;background:var(--code-inline-bg);border:1px solid var(--border);
+  border-radius:5px;padding:2px 6px;color:#312e81;
+}
+.codeblock{
+  background:var(--code-bg);border-radius:var(--radius);margin:18px 0;overflow:hidden;
+  box-shadow:var(--shadow-sm);
+}
+.codeblock .code-lang{
+  display:inline-flex;align-items:center;height:34px;padding:0 14px;margin-right:8px;
+  font-size:11px;font-weight:700;letter-spacing:.05em;text-transform:uppercase;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;
+  color:#cbd5e1;background:var(--code-bar);
+  border-bottom:1px solid #334155;border-right:1px solid #334155;border-radius:0 0 8px 0;
+}
+.codeblock pre{padding:16px 18px;margin:0;overflow-x:auto}
+.codeblock pre code{
+  display:block;background:transparent;border:none;padding:0;
+  font-size:13px;line-height:1.65;white-space:pre;color:var(--code-text);
+}
+
+/* ---------- tables ---------- */
+.table-wrap{
+  margin:18px 0;border:1px solid var(--border);border-radius:var(--radius);
+  overflow:hidden;overflow-x:auto;box-shadow:var(--shadow-sm);
+}
 table{border-collapse:collapse;width:100%;font-size:14px}
-th,td{text-align:left;padding:9px 14px;border-bottom:1px solid var(--border);vertical-align:top}
-th{background:var(--sidebar-bg);font-weight:600;white-space:nowrap}
+th,td{text-align:left;padding:10px 16px;border-bottom:1px solid var(--border);vertical-align:top}
+th{background:var(--bg-subtle);font-weight:600;white-space:nowrap;font-size:13px;letter-spacing:.01em}
+td{color:#334155}
 tbody tr:last-child td{border-bottom:none}
+tbody tr:hover td{background:var(--bg-subtle)}
 td code,th code{white-space:nowrap}
-.admo{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:8px;padding:12px 16px;margin:16px 0;background:#f8fafc}
-.admo p{margin:4px 0}
-.admo .admo-label{display:none}
-.admo-info{border-left-color:#3b82f6}
-.admo-tip{border-left-color:#22c55e}
-.admo-note{border-left-color:#f59e0b}
-.admo-warning{border-left-color:#ef4444}
-ol.steps{list-style:none;counter-reset:step;margin:16px 0;padding:0}
-ol.steps>li{counter-increment:step;margin:0 0 14px;padding:12px 14px;border:1px solid var(--border);border-radius:8px;background:var(--sidebar-bg)}
-ol.steps>li>strong::before{content:counter(step) ". ";color:var(--accent)}
+
+/* ---------- admonitions ---------- */
+.admo{border:1px solid var(--border);border-left:4px solid var(--accent);border-radius:var(--radius);padding:14px 18px;margin:18px 0}
+.admo p{margin:5px 0}
+.admo .admo-label{display:flex;align-items:center;gap:6px;margin:0 0 6px;font-size:12px;font-weight:700;letter-spacing:.06em;text-transform:uppercase}
+.admo .admo-label::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.admo-info{border-left-color:#2563eb;background:#eff6ff}
+.admo-info .admo-label{color:#1d4ed8}
+.admo-tip{border-left-color:#16a34a;background:#f0fdf4}
+.admo-tip .admo-label{color:#15803d}
+.admo-note{border-left-color:#d97706;background:#fffbeb}
+.admo-note .admo-label{color:#b45309}
+.admo-warning{border-left-color:#dc2626;background:#fef2f2}
+.admo-warning .admo-label{color:#b91c1c}
+
+/* ---------- steps ---------- */
+ol.steps{list-style:none;counter-reset:step;margin:20px 0;padding:0}
+ol.steps>li{
+  counter-increment:step;position:relative;margin:0;padding:0 0 26px 46px;
+}
+ol.steps>li::before{
+  content:counter(step);position:absolute;left:0;top:2px;width:30px;height:30px;border-radius:50%;
+  background:var(--accent);color:#fff;display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:13.5px;box-shadow:var(--shadow-sm);
+}
+ol.steps>li:not(:last-child)::after{content:"";position:absolute;left:14.5px;top:38px;bottom:4px;width:1.5px;background:var(--border)}
+ol.steps>li>strong{display:block;font-size:15.5px;margin-bottom:4px}
 ol.steps>li>p{margin:4px 0}
-details.expandable{margin:10px 0;border:1px solid var(--border);border-radius:8px;background:var(--sidebar-bg)}
-details.expandable summary{cursor:pointer;padding:10px 14px;font-weight:600}
+
+/* ---------- expandables / param fields ---------- */
+details.expandable{margin:12px 0;border:1px solid var(--border);border-radius:var(--radius);overflow:hidden;background:var(--bg-subtle)}
+details.expandable summary{
+  cursor:pointer;padding:12px 44px 12px 16px;font-weight:600;font-size:14.5px;
+  position:relative;list-style:none;
+}
+details.expandable summary::-webkit-details-marker{display:none}
+details.expandable summary::after{
+  content:"";position:absolute;right:18px;top:50%;width:8px;height:8px;
+  border-right:2px solid var(--muted);border-bottom:2px solid var(--muted);
+  transform:translateY(-70%) rotate(45deg);transition:transform .15s;
+}
 details.expandable[open] summary{border-bottom:1px solid var(--border)}
-details.expandable .content-inner{padding:10px 14px}
-.blockquote,blockquote{border-left:3px solid var(--border);padding:2px 16px;color:var(--muted);margin:14px 0;background:var(--sidebar-bg);border-radius:0 8px 8px 0}
-.paramfield,.respfield{margin:10px 0;padding:10px 14px;border:1px solid var(--border);border-radius:8px;background:var(--sidebar-bg)}
-.param-name{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;font-weight:600;color:var(--accent)}
-.param-type{display:inline-block;margin-left:8px;font-size:12px;color:var(--muted);background:#fff;border:1px solid var(--border);border-radius:4px;padding:0 6px;font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
-.param-desc{margin-top:4px;font-size:14.5px}
+details.expandable[open] summary::after{transform:translateY(-30%) rotate(-135deg)}
+details.expandable > *:not(summary){padding:12px 16px;background:var(--bg)}
+details.expandable p{margin:6px 0}
+blockquote{border-left:3px solid var(--border);padding:6px 18px;color:var(--muted);margin:16px 0;background:var(--bg-subtle);border-radius:0 var(--radius) var(--radius) 0}
+.paramfield,.respfield{margin:10px 0;padding:12px 16px;border:1px solid var(--border);border-radius:var(--radius);background:var(--bg-subtle)}
+.param-name{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;font-size:13.5px;font-weight:700;color:var(--accent-strong)}
+.param-type{
+  display:inline-block;margin-left:8px;font-size:11.5px;color:var(--muted);background:#fff;
+  border:1px solid var(--border);border-radius:5px;padding:1px 7px;
+  font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace;vertical-align:1px;
+}
+.param-type.required{color:#b91c1c;border-color:#fecaca;background:#fef2f2}
+.param-default{display:inline-block;margin-left:8px;font-size:11.5px;color:var(--muted);font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}
+.param-desc{margin-top:5px;font-size:14px;color:#334155}
 .param-desc p{margin:4px 0}
-.frame{margin:16px 0}
-.frame img{max-width:100%;border:1px solid var(--border);border-radius:8px}
-hr{border:none;border-top:1px solid var(--border);margin:28px 0}
-.pager{display:flex;justify-content:space-between;gap:16px;margin-top:48px;padding-top:24px;border-top:1px solid var(--border)}
-.page-nav{flex:1;display:block;border:1px solid var(--border);border-radius:8px;padding:12px 16px;color:var(--text);font-weight:600;font-size:14px}
-.page-nav:hover{background:var(--sidebar-bg);text-decoration:none}
-.page-nav span{display:block;font-size:12px;color:var(--muted);font-weight:400}
+.paramfield .paramfield,.respfield .paramfield{margin-left:16px}
+
+/* ---------- pager ---------- */
+.pager{
+  display:flex;justify-content:space-between;gap:16px;margin-top:56px;padding-top:28px;
+  border-top:1px solid var(--border);
+}
+.page-nav{
+  flex:1;display:block;border:1px solid var(--border);border-radius:var(--radius);
+  padding:14px 18px;color:var(--text);font-weight:600;font-size:14.5px;
+  background:var(--bg);transition:border-color .15s,box-shadow .15s;
+}
+.page-nav:hover{border-color:var(--accent);text-decoration:none;box-shadow:var(--shadow-sm)}
+.page-nav-label{display:block;font-size:12px;color:var(--muted);font-weight:500;margin-bottom:3px}
 .page-nav.next{text-align:right}
-.footer{margin-top:40px;font-size:13px;color:var(--muted)}
-@media (max-width:860px){.layout{flex-direction:column}.sidebar{position:static;width:100%;height:auto;border-right:none;border-bottom:1px solid var(--border)}.content{padding:24px 20px 60px}.page-title{font-size:26px}}
+
+/* ---------- footer ---------- */
+.footer{
+  margin-top:64px;padding-top:24px;border-top:1px solid var(--border);
+  display:flex;flex-wrap:wrap;align-items:center;gap:12px 24px;
+  font-size:13px;color:var(--muted);
+}
+.footer-links{display:flex;gap:18px}
+.footer-links a{color:var(--muted)}
+.footer-links a:hover{color:var(--accent);text-decoration:none}
+.footer-base code{font-size:12px}
+
+/* ---------- skip link ---------- */
+.skip{position:absolute;left:-9999px;top:0;z-index:100;background:var(--accent);color:#fff;padding:8px 16px;border-radius:0 0 8px 0;font-weight:600}
+.skip:focus{left:0}
+
+/* ---------- responsive ---------- */
+@media (max-width:1180px){
+  .layout{grid-template-columns:250px minmax(0,1fr)}
+  .toc{display:none}
+  .content{padding:36px 40px 88px}
+}
+@media (max-width:900px){
+  .topnav{display:none}
+  .nav-burger{display:inline-flex}
+  .layout{display:block}
+  .sidebar{
+    position:fixed;top:var(--topbar-h);left:0;bottom:0;z-index:40;
+    width:min(320px,86vw);height:auto;background:var(--bg);
+    box-shadow:var(--shadow-md);border-right:1px solid var(--border);
+    transform:translateX(-105%);transition:transform .22s ease;
+  }
+  .nav-toggle:checked ~ .layout .sidebar{transform:translateX(0)}
+  .nav-toggle:checked ~ .layout .scrim,
+  .nav-toggle:checked ~ .scrim{display:block}
+  .scrim{
+    position:fixed;inset:var(--topbar-h) 0 0 0;z-index:35;background:rgb(15 23 42 / .45);
+  }
+  .content{padding:28px 22px 80px;max-width:none}
+  .page-title{font-size:1.6rem}
+  article > p:first-of-type{font-size:16px}
+  .pager{flex-direction:column}
+  .page-nav{width:100%}
+  .footer{flex-direction:column;align-items:flex-start;gap:8px}
+}
 """
 
 
@@ -650,11 +936,6 @@ def main():
         (OUT / "CNAME").write_text("docs.sharaforms.com\n")
         (OUT / ".nojekyll").touch()
 
-    # copy images (create-token.png etc.)
-    img_src = MDX_DIR / "images"
-    if img_src.exists():
-        shutil.copytree(img_src, OUT / "images")
-
     flat = flatten_nav()
     pages: dict[str, str] = {}
 
@@ -669,19 +950,16 @@ def main():
         fm, body = parse_frontmatter(mdx.read_text())
         if "openapi" in fm and not any(c in body for c in ("##", "# ")):
             continue
-        title = fm.get("title") or (
-            re.match(r"^#\s+(.*)$", body, re.M).group(1)
-            if re.match(r"^#\s+(.*)$", body, re.M)
-            else mdx.stem
-        )
+        m = re.match(r"^#\s+(.*)$", body, re.M)
+        title = fm.get("title") or (m.group(1) if m else mdx.stem)
         desc = fm.get("description", f"{title} — SharaForms API reference.")
         body = strip_title_h1(title, body)
         if mdx.parent != MDX_DIR:
             key = f"{mdx.parent.name}/{mdx.stem}.html"
         else:
             key = "index.html" if mdx.stem == "introduction" else f"{mdx.stem}.html"
-        content = conv.convert(body)
-        pages[key] = render_page(title, desc, content, key)
+        content = add_heading_ids(conv.convert(body))
+        pages[key] = content
         print(f"built {key} ({title})")
 
     # --- extra guide pages (computed variables, embedding) ---
@@ -690,32 +968,67 @@ def main():
         title = fm.get("title") or mdx_path.stem
         desc = fm.get("description", f"{title} — SharaForms guide.")
         body = strip_title_h1(title, body)
-        content = conv.convert(body)
-        pages[key + ".html"] = render_page(title, desc, content, key + ".html")
+        content = add_heading_ids(conv.convert(body))
+        pages[key + ".html"] = content
         print(f"built {key}.html ({title})")
 
-    # --- pager wiring + write ---
-    for i, (label, href) in enumerate(flat):
-        if href not in pages:
+    # --- render + pager wiring ---
+    rendered: dict[str, str] = {}
+    meta: dict[str, tuple[str, str]] = {}
+    for mdx in sorted(MDX_DIR.rglob("*.mdx")):
+        if mdx.parent.name in ("images", "endpoint", "zapier"):
             continue
-        prev = flat[i - 1] if i > 0 else None
-        nxt = flat[i + 1] if i + 1 < len(flat) else None
-        prev = prev if prev and prev[1] in pages else None
-        nxt = nxt if nxt and nxt[1] in pages else None
-        html_ = pages[href]
-        html_ = html_.replace(
-            "</main>",
-            f'<div class="pager">'
-            f"{'<a class="page-nav prev" href="/' + prev[1] + '"><span>Previous</span>' + esc(prev[0]) + '</a>' if prev else ''}"
-            f"{'<a class="page-nav next" href="/' + nxt[1] + '"><span>Next</span>' + esc(nxt[0]) + '</a>' if nxt else ''}"
-            f"</div></main>",
-        )
-        out_path = OUT / href
+        fm, body = parse_frontmatter(mdx.read_text())
+        if "openapi" in fm and not any(c in body for c in ("##", "# ")):
+            continue
+        title = fm.get("title") or mdx.stem
+        desc = fm.get("description", f"{title} — SharaForms API reference.")
+        if mdx.parent != MDX_DIR:
+            key = f"{mdx.parent.name}/{mdx.stem}.html"
+        else:
+            key = "index.html" if mdx.stem == "introduction" else f"{mdx.stem}.html"
+        meta[key] = (title, desc)
+    for key, mdx_path in EXTRA_SOURCES:
+        fm, body = parse_frontmatter(mdx_path.read_text())
+        title = fm.get("title") or mdx_path.stem
+        desc = fm.get("description", f"{title} — SharaForms guide.")
+        meta[key + ".html"] = (title, desc)
+
+    for key, content in pages.items():
+        title, desc = meta.get(key, (key, key))
+        prev = next_ = None
+        for i, (label, href) in enumerate(flat):
+            if href == key:
+                prev = flat[i - 1] if i > 0 else None
+                next_ = flat[i + 1] if i + 1 < len(flat) else None
+                prev = prev if prev and prev[1] in pages else None
+                next_ = next_ if next_ and next_[1] in pages else None
+                break
+        rendered[key] = render_page(title, desc, content, key, prev, next_)
+
+    for key, html_ in rendered.items():
+        out_path = OUT / key
+        out_path.parent.mkdir(parents=True, exist_ok=True)
         out_path.write_text(html_)
 
-    # ensure index.html exists (introduction maps there)
-    if "index.html" not in pages and Path(OUT / "introduction.html").exists():
-        shutil.move(OUT / "introduction.html", OUT / "index.html")
+    # --- sitemap + 404 ---
+    sitemap = (
+        '<?xml version="1.0" encoding="UTF-8"?>\n'
+        '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
+    )
+    for key in sorted(rendered):
+        sitemap += f"  <url><loc>{SITE_URL}/{key}</loc></url>\n"
+    sitemap += "</urlset>\n"
+    (OUT / "sitemap.xml").write_text(sitemap)
+
+    (OUT / "404.html").write_text(
+        render_page(
+            "Page not found",
+            "The page you're looking for doesn't exist.",
+            '<p>The page you are looking for does not exist or has moved.</p><p><a href="/">← Back to documentation home</a></p>',
+            "404.html",
+        )
+    )
 
     count = len(list(OUT.rglob("*.html")))
     print(f"\nDone. {count} HTML pages written to {OUT}")
