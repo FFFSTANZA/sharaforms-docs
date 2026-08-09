@@ -1,7 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url><loc>https://docs.sharaforms.com/api-keys.html</loc></url>
-  <url><loc>https://docs.sharaforms.com/changelog.html</loc></url>
   <url><loc>https://docs.sharaforms.com/computed-variables.html</loc></url>
   <url><loc>https://docs.sharaforms.com/embedding/editor-embed.html</loc></url>
   <url><loc>https://docs.sharaforms.com/embedding/javascript-sdk.html</loc></url>
