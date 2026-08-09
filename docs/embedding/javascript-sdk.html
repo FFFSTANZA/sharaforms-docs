@@ -4,46 +4,58 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>JavaScript SDK · SharaForms Docs</title>
-<meta name="description" content="Programmatically interact with embedded SharaForms forms using our JavaScript SDK">
-<meta name="color-scheme" content="light dark">
-<meta name="theme-color" content="#ffffff">
-<meta property="og:type" content="website">
-<meta property="og:site_name" content="SharaForms Docs">
-<meta property="og:title" content="JavaScript SDK">
-<meta property="og:description" content="Programmatically interact with embedded SharaForms forms using our JavaScript SDK">
-<meta property="og:url" content="https://docs.sharaforms.com/embedding/javascript-sdk.html">
+<meta name="description" content="The SharaForms JavaScript SDK enables you to programmatically control embedded forms, listen to events, and build dynamic integrations. The SDK is ava">
 <link rel="canonical" href="https://docs.sharaforms.com/embedding/javascript-sdk.html">
-<link rel="stylesheet" href="/styles.css">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%234f46e5'/%3E%3Cstop offset='1' stop-color='%237c3aed'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ctext x='16' y='22' font-family='-apple-system,Segoe UI,sans-serif' font-size='17' font-weight='700' text-anchor='middle' fill='white'%3ES%3C/text%3E%3C/svg%3E">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' y1='0' x2='1' y2='1'%3E%3Cstop offset='0' stop-color='%236d5df8'/%3E%3Cstop offset='1' stop-color='%234f8ef7'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Cpath d='M9 11h14M9 16h14M9 21h9' stroke='white' stroke-width='2.6' stroke-linecap='round'/%3E%3C/svg%3E">
+<meta property="og:site_name" content="SharaForms Docs">
+<meta property="og:title" content="JavaScript SDK · SharaForms Docs">
+<meta property="og:description" content="The SharaForms JavaScript SDK enables you to programmatically control embedded forms, listen to events, and build dynamic integrations. The SDK is ava">
+<meta property="og:type" content="website">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../styles.css">
+<script>(function(){try{var t=localStorage.getItem('sf-docs-theme');if(!t){t=window.matchMedia('(prefers-color-scheme: dark)').matches?'dark':'light';}document.documentElement.setAttribute('data-theme',t);}catch(e){document.documentElement.setAttribute('data-theme','light');}})();</script>
 </head>
 <body>
-<a class="skip" href="#content">Skip to content</a>
-<input type="checkbox" id="nav-toggle" class="nav-toggle" aria-hidden="true">
 <header class="topbar">
-  <label class="nav-burger" for="nav-toggle" aria-label="Toggle navigation"><span></span></label>
-  <a class="brand" href="/"><span class="brand-mark">S</span><span class="brand-name">SharaForms</span><span class="brand-sub">Docs</span></a>
-  <nav class="topnav" aria-label="Site"><a href="/">API Reference</a><a href="/computed-variables.html" class="active">Guides</a><a href="https://sharaforms.com" class="topnav-ext">Website ↗</a></nav>
-</header>
-<label class="scrim" for="nav-toggle" aria-hidden="true"></label>
-<div class="layout">
-  <nav class="sidebar" aria-label="Documentation"><div class="nav-group"><div class="nav-group-title">Overview</div><ul><li><a href="/index.html">Introduction</a></li><li><a href="/api-keys.html">API Keys</a></li><li><a href="/changelog.html">Changelog</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Forms</div><ul><li><a href="/forms/list-workspace-forms.html">List Workspace Forms</a></li><li><a href="/forms/create-form.html">Create Form</a></li><li><a href="/forms/get-form.html">Get Form</a></li><li><a href="/forms/update-form.html">Update Form</a></li><li><a href="/forms/delete-form.html">Delete Form</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Submissions</div><ul><li><a href="/submissions/create-submission.html">Create Submission (Public)</a></li><li><a href="/submissions/list-submissions.html">List Submissions</a></li><li><a href="/submissions/export-submissions-csv.html">Export Submissions (CSV)</a></li><li><a href="/submissions/export-status.html">Check Export Status</a></li><li><a href="/submissions/update-submission.html">Update Submission</a></li><li><a href="/submissions/delete-submission.html">Delete Submission</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Integrations &amp; Webhooks</div><ul><li><a href="/integrations/create-webhook-integration.html">Create Webhook Integration</a></li><li><a href="/integrations/update-webhook-integration.html">Update Webhook Integration</a></li><li><a href="/integrations/delete-webhook-integration.html">Delete Webhook Integration</a></li><li><a href="/integrations/list-form-integrations.html">List Form Integrations</a></li><li><a href="/integrations/list-webhook-events.html">List Webhook Events</a></li><li><a href="/integrations/webhook-security.html">Validating Webhook Signatures</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><ul><li><a href="/workspaces/list-workspaces.html">List Workspaces</a></li><li><a href="/workspaces/create-workspace.html">Create Workspace</a></li><li><a href="/workspaces/update-workspace.html">Update Workspace</a></li><li><a href="/workspaces/delete-workspace.html">Delete Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><ul><li><a href="/workspace-users/list-workspace-users.html">List Workspace Users</a></li><li><a href="/workspace-users/list-workspace-invites.html">List Workspace Invites</a></li><li><a href="/workspace-users/add-workspace-user.html">Add Workspace User</a></li><li><a href="/workspace-users/update-workspace-user-role.html">Update Workspace User Role</a></li><li><a href="/workspace-users/remove-workspace-user.html">Remove Workspace User</a></li><li><a href="/workspace-users/resend-workspace-invite.html">Resend Workspace Invite</a></li><li><a href="/workspace-users/cancel-workspace-invite.html">Cancel Workspace Invite</a></li><li><a href="/workspace-users/leave-workspace.html">Leave Workspace</a></li></ul></div><div class="nav-group"><div class="nav-group-title">Guides</div><ul><li><a href="/computed-variables.html">Computed Variables</a></li><li><a href="/embedding/javascript-sdk.html" class="active" aria-current="page">JavaScript SDK (Embedding)</a></li><li><a href="/embedding/editor-embed.html">Embed Editor</a></li></ul></div></nav>
-  <main class="content" id="content">
-    
-    <nav class="breadcrumbs" aria-label="Breadcrumb"><a href="/">Home</a><span class="crumb-sep">/</span><span class="crumb-static">Guides</span><span class="crumb-sep">/</span><span class="crumb-current">JavaScript SDK (Embedding)</span></nav>
-    <article>
-      <h1 class="page-title">JavaScript SDK</h1>
-      <p>The SharaForms JavaScript SDK enables you to programmatically control embedded forms, listen to events, and build dynamic integrations. The SDK is available globally as <code>window.sharaforms</code> (or the legacy <code>window.opnform</code> alias). It includes automatic iframe resizing and full backward compatibility with existing embeds.</p>
-<h2 id="installation"><a class="anchor" href="#installation" aria-hidden="true" tabindex="-1">#</a>Installation</h2>
+  <div class="topbar-inner">
+    <a class="brand" href="../"><span class="brand-mark">S</span><span class="brand-name">SharaForms<span class="brand-tag">Docs</span></span></a>
+    <nav class="topnav" aria-label="Site"><a href="../">Overview</a><a href="../forms/list-workspace-forms.html">API Reference</a><a href="../embedding/javascript-sdk.html" class="active">Embedding</a><a href="../changelog.html">Changelog</a></nav>
+    <div class="topbar-actions">
+      <a class="icon-btn gh-link" href="https://github.com/sharaforms" aria-label="GitHub" target="_blank" rel="noopener">
+        <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27s1.36.09 2 .27c1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.01 8.01 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+      </a>
+      <button class="icon-btn theme-toggle" type="button" aria-label="Toggle theme"><svg class="icon-sun" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"><circle cx="8" cy="8" r="3.4"/><path d="M8 1.5v2M8 12.5v2M1.5 8h2M12.5 8h2M3.4 3.4l1.4 1.4M11.2 11.2l1.4 1.4M12.6 3.4l-1.4 1.4M4.8 11.2l-1.4 1.4"/></svg>
+<svg class="icon-moon" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M13.5 9.5A5.7 5.7 0 0 1 6.5 2.5a5.7 5.7 0 1 0 7 7Z"/></svg></button>
+      <button class="icon-btn nav-burger" type="button" aria-label="Menu" aria-expanded="false">
+        <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><path d="M2.5 4.5h11M2.5 8h11M2.5 11.5h11"/></svg>
+      </button>
+    </div>
+  </div>
+</header><div class="layout has-toc">
+<aside class="sidebar" aria-label="Documentation">
+<div class="search"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="7" cy="7" r="4.5"/><path d="m10.5 10.5 3.5 3.5"/></svg><input id="nav-search" type="search" placeholder="Filter docs…" autocomplete="off" spellcheck="false"><span class="kbd">/</span></div>
+<nav class="nav" id="nav" aria-label="Documentation">
+<div class="nav-group"><div class="nav-group-title">Getting Started</div><a href="../index.html">Overview</a><a href="../api-keys.html">API Keys</a><a href="../changelog.html">Changelog</a></div><div class="nav-group"><div class="nav-group-title">Guides</div><a href="../computed-variables.html">Computed Variables</a><a href="../integrations/webhook-security.html">Webhook Security</a></div><div class="nav-group"><div class="nav-group-title">Forms</div><a href="../forms/list-workspace-forms.html"><i class="m-dot m-get"></i>List Workspace Forms</a><a href="../forms/create-form.html"><i class="m-dot m-post"></i>Create Form</a><a href="../forms/get-form.html"><i class="m-dot m-get"></i>Get Form</a><a href="../forms/update-form.html"><i class="m-dot m-put"></i>Update Form</a><a href="../forms/delete-form.html"><i class="m-dot m-delete"></i>Delete Form</a></div><div class="nav-group"><div class="nav-group-title">Submissions</div><a href="../submissions/create-submission.html"><i class="m-dot m-post"></i>Create Submission</a><a href="../submissions/list-submissions.html"><i class="m-dot m-get"></i>List Submissions</a><a href="../submissions/update-submission.html"><i class="m-dot m-put"></i>Update Submission</a><a href="../submissions/delete-submission.html"><i class="m-dot m-delete"></i>Delete Submission</a><a href="../submissions/export-submissions-csv.html"><i class="m-dot m-post"></i>Export Submissions CSV</a><a href="../submissions/export-status.html"><i class="m-dot m-get"></i>Export Status</a></div><div class="nav-group"><div class="nav-group-title">Integrations</div><a href="../integrations/list-form-integrations.html"><i class="m-dot m-get"></i>List Form Integrations</a><a href="../integrations/create-webhook-integration.html"><i class="m-dot m-post"></i>Create Webhook Integration</a><a href="../integrations/update-webhook-integration.html"><i class="m-dot m-put"></i>Update Webhook Integration</a><a href="../integrations/delete-webhook-integration.html"><i class="m-dot m-delete"></i>Delete Webhook Integration</a><a href="../integrations/list-webhook-events.html"><i class="m-dot m-get"></i>List Webhook Events</a></div><div class="nav-group"><div class="nav-group-title">Workspaces</div><a href="../workspaces/list-workspaces.html"><i class="m-dot m-get"></i>List Workspaces</a><a href="../workspaces/create-workspace.html"><i class="m-dot m-post"></i>Create Workspace</a><a href="../workspaces/update-workspace.html"><i class="m-dot m-put"></i>Update Workspace</a><a href="../workspaces/delete-workspace.html"><i class="m-dot m-delete"></i>Delete Workspace</a></div><div class="nav-group"><div class="nav-group-title">Workspace Users</div><a href="../workspace-users/list-workspace-users.html"><i class="m-dot m-get"></i>List Workspace Users</a><a href="../workspace-users/add-workspace-user.html"><i class="m-dot m-post"></i>Add Workspace User</a><a href="../workspace-users/update-workspace-user-role.html"><i class="m-dot m-put"></i>Update User Role</a><a href="../workspace-users/remove-workspace-user.html"><i class="m-dot m-delete"></i>Remove Workspace User</a><a href="../workspace-users/list-workspace-invites.html"><i class="m-dot m-get"></i>List Workspace Invites</a><a href="../workspace-users/cancel-workspace-invite.html"><i class="m-dot m-delete"></i>Cancel Workspace Invite</a><a href="../workspace-users/resend-workspace-invite.html"><i class="m-dot m-post"></i>Resend Workspace Invite</a><a href="../workspace-users/leave-workspace.html"><i class="m-dot m-post"></i>Leave Workspace</a></div><div class="nav-group"><div class="nav-group-title">Embedding</div><a href="../embedding/javascript-sdk.html" class="active">JavaScript SDK</a><a href="../embedding/editor-embed.html">Editor Embed Events</a></div>
+</nav>
+<div class="sidebar-foot"><div class="baseurl">api.sharaforms.com</div></div>
+</aside>
+<main class="content" id="content">
+<header class="page-head"><div class="crumb"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="m6 3.5 4.5 4.5L6 12.5"/></svg><span>Embedding</span></div><h1>JavaScript SDK</h1><p class="lede">The SharaForms JavaScript SDK enables you to programmatically control embedded forms, listen to events, and build dynamic integrations. The SDK is available globally as <code>window.sharaforms</code> (or the legacy <code>window.opnform</code> alias). It includes automatic iframe resizing and full backward compatibility with existing embeds.</p></header><div class="body">
+<p>The SharaForms JavaScript SDK enables you to programmatically control embedded forms, listen to events, and build dynamic integrations. The SDK is available globally as <code>window.sharaforms</code> (or the legacy <code>window.opnform</code> alias). It includes automatic iframe resizing and full backward compatibility with existing embeds.</p>
+<h2 id="installation"><a aria-label="Jump to section" class="anchor" href="#installation">#</a>Installation</h2>
 <p>Include the SDK script after your form iframe:</p>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;iframe
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;iframe
     id="my-form"
     src="https://sharaforms.com/forms/my-form-slug"
     style="border:none;width:100%;"
 &gt;&lt;/iframe&gt;
 &lt;script src="https://sharaforms.com/widgets/sharaforms-sdk.min.js"&gt;&lt;/script&gt;</code></pre></div>
 <div class="admo admo-note"><p class="admo-label">Note</p><p>The SDK automatically discovers SharaForms iframes on your page and initializes     them. No additional setup required.</p></div>
-<h2 id="quick-start"><a class="anchor" href="#quick-start" aria-hidden="true" tabindex="-1">#</a>Quick Start</h2>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Listen to form submission
+<h2 id="quick-start"><a aria-label="Jump to section" class="anchor" href="#quick-start">#</a>Quick Start</h2>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Listen to form submission
 sharaforms.on("submit", function (data) {
     console.log("Form submitted!", data);
     console.log("Submission data:", data.data);
@@ -54,64 +66,64 @@ sharaforms.get("my-form").setField("email", "user@example.com");
 
 // Toggle dark mode
 sharaforms.get("my-form").toggleDarkMode();</code></pre></div>
-<hr>
-<h2 id="events"><a class="anchor" href="#events" aria-hidden="true" tabindex="-1">#</a>Events</h2>
+<hr/>
+<h2 id="events"><a aria-label="Jump to section" class="anchor" href="#events">#</a>Events</h2>
 <p>Listen to form events to trigger custom actions, send data to analytics, or integrate with your application.</p>
-<h3 id="available-events"><a class="anchor" href="#available-events" aria-hidden="true" tabindex="-1">#</a>Available Events</h3>
+<h3 id="available-events"><a aria-label="Jump to section" class="anchor" href="#available-events">#</a>Available Events</h3>
 <div class="table-wrap"><table><thead><tr><th>Event</th><th>Description</th><th>Payload</th></tr></thead><tbody><tr><td><code>ready</code></td><td>Form iframe loaded and ready</td><td><code>{ form, slug, id }</code></td></tr><tr><td><code>submit</code></td><td>Form submitted successfully</td><td><code>{ form, data, submissionId, completionTime }</code></td></tr><tr><td><code>submitStart</code></td><td>Submission started</td><td><code>{ form }</code></td></tr><tr><td><code>submitError</code></td><td>Submission failed</td><td><code>{ form, errors }</code></td></tr><tr><td><code>dataChange</code></td><td>Form data changed</td><td><code>{ form, data, changedField, previousValue, newValue }</code></td></tr><tr><td><code>error</code></td><td>Validation error occurred</td><td><code>{ form, errors }</code></td></tr><tr><td><code>pageChange</code></td><td>Page navigation (multi-page forms)</td><td><code>{ form, fromPage, toPage, totalPages }</code></td></tr><tr><td><code>nextPage</code></td><td>User proceeded to next page</td><td><code>{ form, currentPage, totalPages }</code></td></tr><tr><td><code>previousPage</code></td><td>User went back</td><td><code>{ form, currentPage, totalPages }</code></td></tr><tr><td><code>reset</code></td><td>Form was reset</td><td><code>{ form }</code></td></tr><tr><td><code>show</code></td><td>Popup form opened</td><td><code>{ form }</code></td></tr><tr><td><code>hide</code></td><td>Popup form closed</td><td><code>{ form }</code></td></tr></tbody></table></div>
-<h3 id="listening-to-events"><a class="anchor" href="#listening-to-events" aria-hidden="true" tabindex="-1">#</a>Listening to Events</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.on('submit', function(data) {
+<h3 id="listening-to-events"><a aria-label="Jump to section" class="anchor" href="#listening-to-events">#</a>Listening to Events</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.on('submit', function(data) {
   console.log('Form submitted:', data);
 });</code></pre></div>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.on(["nextPage", "previousPage"], function (data) {
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.on(["nextPage", "previousPage"], function (data) {
     console.log("Page changed to:", data.currentPage);
 });</code></pre></div>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.get("contact-form").on("submit", function (data) {
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.get("contact-form").on("submit", function (data) {
     console.log("Contact form submitted");
 });</code></pre></div>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.once("ready", function (data) {
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.once("ready", function (data) {
     console.log("Form is ready");
 });</code></pre></div>
-<h3 id="removing-event-listeners"><a class="anchor" href="#removing-event-listeners" aria-hidden="true" tabindex="-1">#</a>Removing Event Listeners</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Remove specific handler
+<h3 id="removing-event-listeners"><a aria-label="Jump to section" class="anchor" href="#removing-event-listeners">#</a>Removing Event Listeners</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Remove specific handler
 const handler = (data) =&gt; console.log(data);
 sharaforms.on("submit", handler);
 sharaforms.off("submit", handler);
 
 // Remove all listeners for an event
 sharaforms.off("submit");</code></pre></div>
-<hr>
-<h2 id="form-methods"><a class="anchor" href="#form-methods" aria-hidden="true" tabindex="-1">#</a>Form Methods</h2>
+<hr/>
+<h2 id="form-methods"><a aria-label="Jump to section" class="anchor" href="#form-methods">#</a>Form Methods</h2>
 <p>Access form instances using <code>sharaforms.get('form-slug')</code> (or legacy <code>sharaforms.get('form-slug')</code>) and call methods to control the form.</p>
-<h3 id="field-operations"><a class="anchor" href="#field-operations" aria-hidden="true" tabindex="-1">#</a>Field Operations</h3>
+<h3 id="field-operations"><a aria-label="Jump to section" class="anchor" href="#field-operations">#</a>Field Operations</h3>
 <details class="expandable"><summary>setField(fieldId, value)</summary><p>Set the value of a specific field.</p>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.get("my-form").setField("email", "user@example.com");
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.get("my-form").setField("email", "user@example.com");
 sharaforms.get("my-form").setField("name", "John Doe");
 
 // Works for hidden fields too
 sharaforms.get("my-form").setField("utm_source", "google");</code></pre></div></details>
 <details class="expandable"><summary>setFields(data)</summary><p>Set multiple field values at once.</p>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.get("my-form").setFields({
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.get("my-form").setFields({
     name: "John Doe",
     email: "john@example.com",
     company: "Acme Inc",
     utm_source: "landing_page",
 });</code></pre></div></details>
 <details class="expandable"><summary>getField(fieldId)</summary><p>Get the current value of a field.</p>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>const email = sharaforms.get("my-form").getField("email");
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>const email = sharaforms.get("my-form").getField("email");
 console.log(email); // "user@example.com"</code></pre></div></details>
 <details class="expandable"><summary>getData()</summary><p>Get all current form data.</p>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>const formData = sharaforms.get("my-form").getData();
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>const formData = sharaforms.get("my-form").getData();
 console.log(formData);
 // { name: "John", email: "john@example.com", ... }</code></pre></div></details>
 <details class="expandable"><summary>clearField(fieldId) / clearAll()</summary><p>Clear field values.</p>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Clear single field
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Clear single field
 sharaforms.get("my-form").clearField("email");
 
 // Clear all fields
 sharaforms.get("my-form").clearAll();</code></pre></div></details>
-<h3 id="error-handling"><a class="anchor" href="#error-handling" aria-hidden="true" tabindex="-1">#</a>Error Handling</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Check if a field has an error
+<h3 id="error-handling"><a aria-label="Jump to section" class="anchor" href="#error-handling">#</a>Error Handling</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Check if a field has an error
 const hasError = sharaforms.get("my-form").hasError("email");
 
 // Get error message for a field
@@ -120,8 +132,8 @@ const errorMsg = sharaforms.get("my-form").getError("email");
 // Get all errors
 const errors = sharaforms.get("my-form").getErrors();
 // { email: "Invalid email format", phone: "Required" }</code></pre></div>
-<h3 id="theme-control"><a class="anchor" href="#theme-control" aria-hidden="true" tabindex="-1">#</a>Theme Control</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Toggle dark mode
+<h3 id="theme-control"><a aria-label="Jump to section" class="anchor" href="#theme-control">#</a>Theme Control</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Toggle dark mode
 sharaforms.get("my-form").toggleDarkMode();
 
 // Set specific mode
@@ -131,8 +143,8 @@ sharaforms.get("my-form").setDarkMode("auto"); // Follow system
 
 // Check current mode
 const isDark = sharaforms.get("my-form").isDarkMode();</code></pre></div>
-<h3 id="navigation-multi-page-forms"><a class="anchor" href="#navigation-multi-page-forms" aria-hidden="true" tabindex="-1">#</a>Navigation (Multi-Page Forms)</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Navigate to specific page
+<h3 id="navigation-multi-page-forms"><a aria-label="Jump to section" class="anchor" href="#navigation-multi-page-forms">#</a>Navigation (Multi-Page Forms)</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Navigate to specific page
 sharaforms.get("my-form").goToPage(2);
 
 // Navigate forward/backward
@@ -146,8 +158,8 @@ const page = sharaforms.get("my-form").getCurrentPage();
 // Check navigation availability
 const canNext = sharaforms.get("my-form").canGoNext();
 const canPrev = sharaforms.get("my-form").canGoPrevious();</code></pre></div>
-<h3 id="form-actions"><a class="anchor" href="#form-actions" aria-hidden="true" tabindex="-1">#</a>Form Actions</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Submit form programmatically
+<h3 id="form-actions"><a aria-label="Jump to section" class="anchor" href="#form-actions">#</a>Form Actions</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Submit form programmatically
 sharaforms.get("my-form").submit();
 
 // Reset form to initial state
@@ -155,9 +167,9 @@ sharaforms.get("my-form").reset();
 
 // Focus on first error field
 sharaforms.get("my-form").focusFirstError();</code></pre></div>
-<h3 id="popup-control"><a class="anchor" href="#popup-control" aria-hidden="true" tabindex="-1">#</a>Popup Control</h3>
+<h3 id="popup-control"><a aria-label="Jump to section" class="anchor" href="#popup-control">#</a>Popup Control</h3>
 <p>For forms embedded as popups:</p>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Open popup
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Open popup
 sharaforms.get("my-form").open();
 
 // Close popup
@@ -168,10 +180,10 @@ sharaforms.get("my-form").toggle();
 
 // Check if open
 const isOpen = sharaforms.get("my-form").isOpen();</code></pre></div>
-<hr>
-<h2 id="global-sdk-methods"><a class="anchor" href="#global-sdk-methods" aria-hidden="true" tabindex="-1">#</a>Global SDK Methods</h2>
-<h3 id="form-management"><a class="anchor" href="#form-management" aria-hidden="true" tabindex="-1">#</a>Form Management</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>// Get a specific form instance
+<hr/>
+<h2 id="global-sdk-methods"><a aria-label="Jump to section" class="anchor" href="#global-sdk-methods">#</a>Global SDK Methods</h2>
+<h3 id="form-management"><a aria-label="Jump to section" class="anchor" href="#form-management">#</a>Form Management</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>// Get a specific form instance
 const form = sharaforms.get("my-form-slug");
 
 // Get all forms on the page
@@ -179,8 +191,8 @@ const forms = sharaforms.getAll();
 
 // Check if a form is ready
 const isReady = sharaforms.isReady("my-form-slug");</code></pre></div>
-<h3 id="initialization-options"><a class="anchor" href="#initialization-options" aria-hidden="true" tabindex="-1">#</a>Initialization Options</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.init({
+<h3 id="initialization-options"><a aria-label="Jump to section" class="anchor" href="#initialization-options">#</a>Initialization Options</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.init({
     autoResize: true, // Auto-resize iframes (default: true)
     defaultDarkMode: "auto", // 'auto' | true | false
     preventRedirect: false, // Prevent redirect after submission
@@ -189,8 +201,8 @@ const isReady = sharaforms.isReady("my-form-slug");</code></pre></div>
         console.log("All forms ready:", forms);
     },
 });</code></pre></div>
-<h3 id="programmatic-form-creation"><a class="anchor" href="#programmatic-form-creation" aria-hidden="true" tabindex="-1">#</a>Programmatic Form Creation</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.create("my-form-slug", {
+<h3 id="programmatic-form-creation"><a aria-label="Jump to section" class="anchor" href="#programmatic-form-creation">#</a>Programmatic Form Creation</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.create("my-form-slug", {
     container: "#form-container", // CSS selector or element
     width: "100%",
     height: "auto",
@@ -199,10 +211,10 @@ const isReady = sharaforms.isReady("my-form-slug");</code></pre></div>
         console.log("Submitted:", data);
     },
 });</code></pre></div>
-<hr>
-<h2 id="integration-examples"><a class="anchor" href="#integration-examples" aria-hidden="true" tabindex="-1">#</a>Integration Examples</h2>
-<h3 id="google-analytics-4"><a class="anchor" href="#google-analytics-4" aria-hidden="true" tabindex="-1">#</a>Google Analytics 4</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.on("submit", function (data) {
+<hr/>
+<h2 id="integration-examples"><a aria-label="Jump to section" class="anchor" href="#integration-examples">#</a>Integration Examples</h2>
+<h3 id="google-analytics-4"><a aria-label="Jump to section" class="anchor" href="#google-analytics-4">#</a>Google Analytics 4</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.on("submit", function (data) {
     gtag("event", "form_submission", {
         form_id: data.form.id,
         form_name: data.form.slug,
@@ -217,8 +229,8 @@ sharaforms.on("pageChange", function (data) {
         total_pages: data.totalPages,
     });
 });</code></pre></div>
-<h3 id="send-to-custom-api"><a class="anchor" href="#send-to-custom-api" aria-hidden="true" tabindex="-1">#</a>Send to Custom API</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.on("submit", async function (data) {
+<h3 id="send-to-custom-api"><a aria-label="Jump to section" class="anchor" href="#send-to-custom-api">#</a>Send to Custom API</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.on("submit", async function (data) {
     await fetch("/api/leads", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
@@ -230,8 +242,8 @@ sharaforms.on("pageChange", function (data) {
         }),
     });
 });</code></pre></div>
-<h3 id="error-tracking"><a class="anchor" href="#error-tracking" aria-hidden="true" tabindex="-1">#</a>Error Tracking</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.on("submitError", function (data) {
+<h3 id="error-tracking"><a aria-label="Jump to section" class="anchor" href="#error-tracking">#</a>Error Tracking</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.on("submitError", function (data) {
     console.error("Form submission failed:", data.errors);
 
     // Send to error tracking service
@@ -243,8 +255,8 @@ sharaforms.on("pageChange", function (data) {
 sharaforms.on("error", function (data) {
     console.log("Validation errors:", data.errors);
 });</code></pre></div>
-<h3 id="dynamic-field-population"><a class="anchor" href="#dynamic-field-population" aria-hidden="true" tabindex="-1">#</a>Dynamic Field Population</h3>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.once("ready", function () {
+<h3 id="dynamic-field-population"><a aria-label="Jump to section" class="anchor" href="#dynamic-field-population">#</a>Dynamic Field Population</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.once("ready", function () {
     // Get data from URL params
     const params = new URLSearchParams(window.location.search);
 
@@ -254,14 +266,14 @@ sharaforms.on("error", function (data) {
         utm_campaign: params.get("utm_campaign") || "",
     });
 });</code></pre></div>
-<hr>
-<h2 id="custom-code-integration"><a class="anchor" href="#custom-code-integration" aria-hidden="true" tabindex="-1">#</a>Custom Code Integration</h2>
+<hr/>
+<h2 id="custom-code-integration"><a aria-label="Jump to section" class="anchor" href="#custom-code-integration">#</a>Custom Code Integration</h2>
 <p>The SDK is automatically available when using the <strong>Custom Code</strong> feature in SharaForms. You can add custom JavaScript directly in your form or workspace settings, and the <code>window.sharaforms</code> (or legacy <code>window.opnform</code>) SDK will be ready to use.</p>
 <div class="admo admo-tip"><p class="admo-label">Tip</p><p>Custom Code works without iframes - the SDK is initialized directly on your     form page, giving you full access to form methods and events.</p></div>
-<h3 id="adding-custom-code"><a class="anchor" href="#adding-custom-code" aria-hidden="true" tabindex="-1">#</a>Adding Custom Code</h3>
+<h3 id="adding-custom-code"><a aria-label="Jump to section" class="anchor" href="#adding-custom-code">#</a>Adding Custom Code</h3>
 <ol><li>Go to your form's <strong>Settings</strong> → <strong>Custom Code</strong> (or Workspace Settings for workspace-wide code)</li><li>Add your JavaScript code in a <code>&lt;script&gt;</code> tag</li><li>The SDK (<code>window.sharaforms</code> or legacy <code>window.opnform</code>) is automatically available</li></ol>
-<h3 id="example-google-analytics-tracking"><a class="anchor" href="#example-google-analytics-tracking" aria-hidden="true" tabindex="-1">#</a>Example: Google Analytics Tracking</h3>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;script&gt;
+<h3 id="example-google-analytics-tracking"><a aria-label="Jump to section" class="anchor" href="#example-google-analytics-tracking">#</a>Example: Google Analytics Tracking</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;script&gt;
     // Track form submission
     sharaforms.on("submit", function (data) {
         gtag("event", "form_submission", {
@@ -278,16 +290,16 @@ sharaforms.on("error", function (data) {
         });
     });
 &lt;/script&gt;</code></pre></div>
-<h3 id="example-facebook-pixel"><a class="anchor" href="#example-facebook-pixel" aria-hidden="true" tabindex="-1">#</a>Example: Facebook Pixel</h3>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;script&gt;
+<h3 id="example-facebook-pixel"><a aria-label="Jump to section" class="anchor" href="#example-facebook-pixel">#</a>Example: Facebook Pixel</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;script&gt;
     sharaforms.on("submit", function (data) {
         fbq("track", "Lead", {
             content_name: data.form.slug,
         });
     });
 &lt;/script&gt;</code></pre></div>
-<h3 id="example-conditional-logic-with-external-data"><a class="anchor" href="#example-conditional-logic-with-external-data" aria-hidden="true" tabindex="-1">#</a>Example: Conditional Logic with External Data</h3>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;script&gt;
+<h3 id="example-conditional-logic-with-external-data"><a aria-label="Jump to section" class="anchor" href="#example-conditional-logic-with-external-data">#</a>Example: Conditional Logic with External Data</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;script&gt;
     sharaforms.once("ready", function () {
         // Fetch user data and pre-fill form
         fetch("/api/user-info")
@@ -300,8 +312,8 @@ sharaforms.on("error", function (data) {
             });
     });
 &lt;/script&gt;</code></pre></div>
-<h3 id="example-custom-validation-feedback"><a class="anchor" href="#example-custom-validation-feedback" aria-hidden="true" tabindex="-1">#</a>Example: Custom Validation Feedback</h3>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;script&gt;
+<h3 id="example-custom-validation-feedback"><a aria-label="Jump to section" class="anchor" href="#example-custom-validation-feedback">#</a>Example: Custom Validation Feedback</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;script&gt;
     sharaforms.on("error", function (data) {
         // Show custom toast notification for errors
         Object.values(data.errors).forEach(function (error) {
@@ -313,8 +325,8 @@ sharaforms.on("error", function (data) {
         showToast("Thank you for your submission!", "success");
     });
 &lt;/script&gt;</code></pre></div>
-<h3 id="example-live-data-change-tracking"><a class="anchor" href="#example-live-data-change-tracking" aria-hidden="true" tabindex="-1">#</a>Example: Live Data Change Tracking</h3>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;script&gt;
+<h3 id="example-live-data-change-tracking"><a aria-label="Jump to section" class="anchor" href="#example-live-data-change-tracking">#</a>Example: Live Data Change Tracking</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;script&gt;
     sharaforms.on("dataChange", function (data) {
         console.log("Field changed:", data.changedField);
         console.log("New value:", data.newValue);
@@ -325,8 +337,8 @@ sharaforms.on("error", function (data) {
         }
     });
 &lt;/script&gt;</code></pre></div>
-<h3 id="accessing-form-data-directly"><a class="anchor" href="#accessing-form-data-directly" aria-hidden="true" tabindex="-1">#</a>Accessing Form Data Directly</h3>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;script&gt;
+<h3 id="accessing-form-data-directly"><a aria-label="Jump to section" class="anchor" href="#accessing-form-data-directly">#</a>Accessing Form Data Directly</h3>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;script&gt;
     sharaforms.once("ready", function () {
         var form = sharaforms.get("my-form-slug");
 
@@ -347,45 +359,49 @@ sharaforms.on("error", function (data) {
         console.log("Page " + (page.index + 1) + " of " + page.total);
     });
 &lt;/script&gt;</code></pre></div>
-<hr>
-<h2 id="backward-compatibility"><a class="anchor" href="#backward-compatibility" aria-hidden="true" tabindex="-1">#</a>Backward Compatibility</h2>
+<hr/>
+<h2 id="backward-compatibility"><a aria-label="Jump to section" class="anchor" href="#backward-compatibility">#</a>Backward Compatibility</h2>
 <div class="admo admo-info"><p class="admo-label">Info</p><p>Existing embeds using <code>initEmbed()</code> or the <code>window.opnform</code> global continue     to work without changes. The SDK provides full backward compatibility. New     code should use <code>window.sharaforms</code> as the primary API.</p></div>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;!-- Old embed code still works (legacy URL) --&gt;
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;!-- Old embed code still works (legacy URL) --&gt;
 &lt;iframe id="my-form" src="https://sharaforms.com/forms/my-form"&gt;&lt;/iframe&gt;
 &lt;script src="https://sharaforms.com/widgets/iframe.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
     initEmbed("my-form", { autoResize: true });
 &lt;/script&gt;</code></pre></div>
 <div class="admo admo-tip"><p class="admo-label">Tip</p><p>We recommend upgrading to the new SDK to access event callbacks and     programmatic control features.</p></div>
-<hr>
-<h2 id="troubleshooting"><a class="anchor" href="#troubleshooting" aria-hidden="true" tabindex="-1">#</a>Troubleshooting</h2>
+<hr/>
+<h2 id="troubleshooting"><a aria-label="Jump to section" class="anchor" href="#troubleshooting">#</a>Troubleshooting</h2>
 <details class="expandable"><summary>Form not found</summary><p>Ensure the iframe has loaded and the <code>id</code> attribute matches the form slug:</p>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;iframe id="my-form-slug" src="https://sharaforms.com/forms/my-form-slug"&gt;&lt;/iframe&gt;</code></pre></div>
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;iframe id="my-form-slug" src="https://sharaforms.com/forms/my-form-slug"&gt;&lt;/iframe&gt;</code></pre></div>
 <p>Use <code>sharaforms.getAll()</code> (or legacy <code>opnform.getAll()</code>) to see discovered forms.</p></details>
 <details class="expandable"><summary>Events not firing</summary><p>Make sure the SDK script is loaded after the iframe:</p>
-<div class="codeblock"><span class="code-lang">html</span><pre><code>&lt;iframe ...&gt;&lt;/iframe&gt;
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">html</span></div><pre><code>&lt;iframe ...&gt;&lt;/iframe&gt;
 &lt;script src="https://sharaforms.com/widgets/sharaforms-sdk.min.js"&gt;&lt;/script&gt;
 &lt;script&gt;
     // Your event handlers here
 &lt;/script&gt;</code></pre></div></details>
 <details class="expandable"><summary>Commands not working</summary><p>Commands require the form to be ready. Use the <code>ready</code> event:</p>
-<div class="codeblock"><span class="code-lang">javascript</span><pre><code>sharaforms.once("ready", function () {
+<div class="codeblock"><div class="code-head"><span class="dots"><i></i><i></i><i></i></span><span class="code-lang">javascript</span></div><pre><code>sharaforms.once("ready", function () {
     sharaforms.get("my-form").setField("email", "test@example.com");
 });</code></pre></div></details>
 <details class="expandable"><summary>Auto-resize not working</summary><p>The SDK includes iFrame Resizer. If resize isn't working, ensure:</p>
 <ul><li>No CSS <code>max-height</code> restricting the iframe</li><li>The form is not in <code>focused</code> presentation style (which has fixed height)</li></ul></details>
-    </article>
-    <div class="pager"><a class="page-nav prev" href="/computed-variables.html"><span class="page-nav-label">← Previous</span>Computed Variables</a><a class="page-nav next" href="/embedding/editor-embed.html"><span class="page-nav-label">Next →</span>Embed Editor</a></div>
-    <footer class="footer">
-      <span class="footer-copy">© 2026 SharaForms</span>
-      <span class="footer-links">
-        <a href="https://sharaforms.com">sharaforms.com</a>
-        <a href="https://github.com/FFFSTANZA/sharaforms">GitHub</a>
-      </span>
-      <span class="footer-base">Base URL <code>https://api.sharaforms.com</code></span>
-    </footer>
-  </main>
-  <aside class="toc" aria-label="On this page"><div class="toc-title">On this page</div><ul><li class="toc-l2"><a href="#installation">#Installation</a></li><li class="toc-l2"><a href="#quick-start">#Quick Start</a></li><li class="toc-l2"><a href="#events">#Events</a></li><li class="toc-l3"><a href="#available-events">#Available Events</a></li><li class="toc-l3"><a href="#listening-to-events">#Listening to Events</a></li><li class="toc-l3"><a href="#removing-event-listeners">#Removing Event Listeners</a></li><li class="toc-l2"><a href="#form-methods">#Form Methods</a></li><li class="toc-l3"><a href="#field-operations">#Field Operations</a></li><li class="toc-l3"><a href="#error-handling">#Error Handling</a></li><li class="toc-l3"><a href="#theme-control">#Theme Control</a></li><li class="toc-l3"><a href="#navigation-multi-page-forms">#Navigation (Multi-Page Forms)</a></li><li class="toc-l3"><a href="#form-actions">#Form Actions</a></li><li class="toc-l3"><a href="#popup-control">#Popup Control</a></li><li class="toc-l2"><a href="#global-sdk-methods">#Global SDK Methods</a></li><li class="toc-l3"><a href="#form-management">#Form Management</a></li><li class="toc-l3"><a href="#initialization-options">#Initialization Options</a></li><li class="toc-l3"><a href="#programmatic-form-creation">#Programmatic Form Creation</a></li><li class="toc-l2"><a href="#integration-examples">#Integration Examples</a></li><li class="toc-l3"><a href="#google-analytics-4">#Google Analytics 4</a></li><li class="toc-l3"><a href="#send-to-custom-api">#Send to Custom API</a></li><li class="toc-l3"><a href="#error-tracking">#Error Tracking</a></li><li class="toc-l3"><a href="#dynamic-field-population">#Dynamic Field Population</a></li><li class="toc-l2"><a href="#custom-code-integration">#Custom Code Integration</a></li><li class="toc-l3"><a href="#adding-custom-code">#Adding Custom Code</a></li><li class="toc-l3"><a href="#example-google-analytics-tracking">#Example: Google Analytics Tracking</a></li><li class="toc-l3"><a href="#example-facebook-pixel">#Example: Facebook Pixel</a></li><li class="toc-l3"><a href="#example-conditional-logic-with-external-data">#Example: Conditional Logic with External Data</a></li><li class="toc-l3"><a href="#example-custom-validation-feedback">#Example: Custom Validation Feedback</a></li><li class="toc-l3"><a href="#example-live-data-change-tracking">#Example: Live Data Change Tracking</a></li><li class="toc-l3"><a href="#accessing-form-data-directly">#Accessing Form Data Directly</a></li><li class="toc-l2"><a href="#backward-compatibility">#Backward Compatibility</a></li><li class="toc-l2"><a href="#troubleshooting">#Troubleshooting</a></li></ul></aside>
-</div>
+</div><nav class="pager" aria-label="Pages">
+<a class="pager-card prev" href="../workspace-users/leave-workspace.html"><span class="p-label">Prev</span><span class="p-title">Leave Workspace</span></a><a class="pager-card next" href="../embedding/editor-embed.html"><span class="p-label">Next</span><span class="p-title">Editor Embed Events</span></a>
+</nav>
+</main>
+<aside class="toc-col"><nav class="toc" aria-label="On this page"><div class="toc-title">On this page</div><a class="" href="#installation">#Installation</a><a class="" href="#quick-start">#Quick Start</a><a class="" href="#events">#Events</a><a class="lvl-3" href="#available-events">#Available Events</a><a class="lvl-3" href="#listening-to-events">#Listening to Events</a><a class="lvl-3" href="#removing-event-listeners">#Removing Event Listeners</a><a class="" href="#form-methods">#Form Methods</a><a class="lvl-3" href="#field-operations">#Field Operations</a><a class="lvl-3" href="#error-handling">#Error Handling</a><a class="lvl-3" href="#theme-control">#Theme Control</a><a class="lvl-3" href="#navigation-multi-page-forms">#Navigation (Multi-Page Forms)</a><a class="lvl-3" href="#form-actions">#Form Actions</a><a class="lvl-3" href="#popup-control">#Popup Control</a><a class="" href="#global-sdk-methods">#Global SDK Methods</a><a class="lvl-3" href="#form-management">#Form Management</a><a class="lvl-3" href="#initialization-options">#Initialization Options</a><a class="lvl-3" href="#programmatic-form-creation">#Programmatic Form Creation</a><a class="" href="#integration-examples">#Integration Examples</a><a class="lvl-3" href="#google-analytics-4">#Google Analytics 4</a><a class="lvl-3" href="#send-to-custom-api">#Send to Custom API</a><a class="lvl-3" href="#error-tracking">#Error Tracking</a><a class="lvl-3" href="#dynamic-field-population">#Dynamic Field Population</a><a class="" href="#custom-code-integration">#Custom Code Integration</a><a class="lvl-3" href="#adding-custom-code">#Adding Custom Code</a><a class="lvl-3" href="#example-google-analytics-tracking">#Example: Google Analytics Tracking</a><a class="lvl-3" href="#example-facebook-pixel">#Example: Facebook Pixel</a><a class="lvl-3" href="#example-conditional-logic-with-external-data">#Example: Conditional Logic with External Data</a><a class="lvl-3" href="#example-custom-validation-feedback">#Example: Custom Validation Feedback</a><a class="lvl-3" href="#example-live-data-change-tracking">#Example: Live Data Change Tracking</a><a class="lvl-3" href="#accessing-form-data-directly">#Accessing Form Data Directly</a><a class="" href="#backward-compatibility">#Backward Compatibility</a><a class="" href="#troubleshooting">#Troubleshooting</a></nav></aside>
+</div><footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-copy">© 2026 SharaForms</div>
+    <nav class="footer-links" aria-label="Footer">
+      <a href="../">Overview</a>
+      <a href="../changelog.html">Changelog</a>
+      <a href="https://github.com/sharaforms" target="_blank" rel="noopener">GitHub</a>
+    </nav>
+  </div>
+</footer>
+<div class="scrim"></div>
+<script src="../app.js"></script>
 </body>
 </html>
